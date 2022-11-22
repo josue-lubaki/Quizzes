@@ -2,9 +2,13 @@ package ca.josue.mainactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 
@@ -15,7 +19,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
+    private final String LOG_TAG = "mainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +39,54 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<List<QuizDto>> questions, @NonNull Response<List<QuizDto>> response) {
                     if(!response.isSuccessful()) {
-                        Log.e("MainActivity", "onResponse: " + response.code());
+                        Log.e(LOG_TAG, "onResponse: " + response.code());
                         return;
                     }
 
                     List<QuizDto> quizzes = response.body();
                     if(quizzes == null || quizzes.isEmpty()) {
-                        Log.e("MainActivity", "onResponse: quizzes is null");
+                        Log.e(LOG_TAG, "onResponse: quizzes is null");
                         return;
                     }
-                    Log.d("MainActivity", quizzes.toString());
+                    Log.d(LOG_TAG, quizzes.toString());
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<List<QuizDto>> call, @NonNull Throwable t) {
-                    Log.e("MainActivity", t.getMessage());
+                    Log.e(LOG_TAG, t.getMessage());
                 }
             });
+    }
+
+    /*****************  Affichage des Fragments  *****************/
+    public void showFragment(Class<? extends Fragment> fragment) {
+        try {
+            Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(fragment.getName());
+
+            if(currentFragment == null)
+                currentFragment = fragment.newInstance();
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, currentFragment, fragment.getName()).commit();
+
+        } catch(InstantiationException | IllegalAccessException e){
+            e.printStackTrace();
+            Log.d(LOG_TAG,"erreur au moment d'instancier fragment");
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        item.setChecked(true);
+        switch(item.getItemId()){
+            case R.id.optionHome:
+                return true;
+            case R.id.optionScore:
+                return true;
+            case R.id.optionProfile:
+                return true;
+        }
+        return false;
     }
 }
