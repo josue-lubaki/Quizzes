@@ -9,4 +9,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="myBackground">#3D444A</color>
     <color name="red">#AD1919</color>
+    <color name="BackgroundAnnonce">#434343</color>
+    <color name="BackgroungTitre">#212121</color>
+    <color name="BackgroundNavBar">#85C0F7</color>
+    <color name="BackgroundSplash">#232323</color>
+    <color name="ProgressBarBackground">#AFAFB0</color>
+    <color name="progressBarIndicator">#A13D49</color>
+    <color name="yellow">#F0CA69</color>
+    <color name="gris_clair">#838383</color>
+    <color name="green">#196A1C</color>
+    <color name="vert">#266127</color>
 </resources>

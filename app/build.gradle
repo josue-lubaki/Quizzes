@@ -12,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0"
 
+        dataBinding {
+            enabled true
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()
@@ -60,4 +64,7 @@ dependencies {
 
     // Added Lombok
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // Added Lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
 }
