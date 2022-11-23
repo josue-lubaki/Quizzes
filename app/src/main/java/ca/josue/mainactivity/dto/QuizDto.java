@@ -7,9 +7,11 @@ import java.util.List;
 
 import ca.josue.mainactivity.entity.Answers;
 import ca.josue.mainactivity.entity.Correct_answers;
+import ca.josue.mainactivity.entity.QuizEntity;
 import ca.josue.mainactivity.entity.Tag;
 
 public class QuizDto {
+    public long id;
     public String question;
     public String description = null;
     public Answers answers;
@@ -24,7 +26,7 @@ public class QuizDto {
 
     @NonNull
     public String toString() {
-        return "Question: " + question + "/n"
+        return "Question " + id + " : " + question + "/n"
                 + "description: " + description + "/n"
                 + "Answers: " + answers + "/n"
                 + "multiple_correct_answers: " + multiple_correct_answers + "/n"
@@ -35,5 +37,22 @@ public class QuizDto {
                 + "tags: " + tags + "/n"
                 + "category: " + category + "/n"
                 + "difficulty: " + difficulty + "/n";
+    }
+
+    public static QuizEntity toEntity(QuizDto quizDto) {
+        QuizEntity quizEntity = new QuizEntity();
+        quizEntity.setId(quizDto.id);
+        quizEntity.setQuestion(quizDto.question);
+        quizEntity.setDescription(quizDto.description);
+        quizEntity.setAnswers(quizDto.answers);
+        quizEntity.setMultiple_correct_answers(quizDto.multiple_correct_answers);
+        quizEntity.setCorrect_answers(quizDto.correct_answers);
+        quizEntity.setCorrect_answer(quizDto.correct_answer);
+        quizEntity.setExplanation(quizDto.explanation);
+        quizEntity.setTip(quizDto.tip);
+        quizEntity.setTags(quizDto.tags);
+        quizEntity.setCategory(quizDto.category);
+        quizEntity.setDifficulty(quizDto.difficulty);
+        return quizEntity;
     }
 }

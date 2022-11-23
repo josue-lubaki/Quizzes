@@ -17,6 +17,8 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         buildConfigField "String", "QUIZZES_KEY", "\"${properties.getProperty("QUIZZES_KEY")}\""
+        buildConfigField "String", "QUIZZES_URL", "\"${properties.getProperty("QUIZZES_URL")}\""
+        buildConfigField "String", "QUIZZES_DB_NAME", "\"${properties.getProperty("QUIZZES_DB_NAME")}\""
     }
 
     buildTypes {

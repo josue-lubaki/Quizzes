@@ -1,22 +1,34 @@
 package ca.josue.mainactivity.entity;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.josue.mainactivity.dto.QuizDto;
 
+@Entity(tableName = "quizzesTable")
 public class QuizEntity {
-    private float id;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String question;
     private String description;
+
+    // exclude Answers answers from database Entity
+    @Ignore
     private Answers answers;
     private String multiple_correct_answers;
+
+    @Ignore
     private Correct_answers correct_answers;
     private String correct_answer;
     private String explanation;
     private String tip;
+
+    @Ignore
     private List<Tag> tags = new ArrayList<>();
     private String category;
     private String difficulty;
@@ -26,7 +38,7 @@ public class QuizEntity {
 
     // Getter Methods
 
-    public float getId() {
+    public long getId() {
         return id;
     }
 
@@ -76,7 +88,7 @@ public class QuizEntity {
 
     // Setter Methods
 
-    public void setId(float id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -139,19 +151,20 @@ public class QuizEntity {
                 + "difficulty: " + difficulty + "/n";
     }
 
-    public QuizDto toDTO(){
+    public static QuizDto toDTO(QuizEntity quizEntity) {
         QuizDto dto = new QuizDto();
-        dto.question = this.question;
-        dto.description = this.description;
-        dto.answers = this.answers;
-        dto.multiple_correct_answers = this.multiple_correct_answers;
-        dto.correct_answers = this.correct_answers;
-        dto.correct_answer = this.correct_answer;
-        dto.explanation = this.explanation;
-        dto.tip = this.tip;
-        dto.tags = this.tags;
-        dto.category = this.category;
-        dto.difficulty = this.difficulty;
+        dto.id = quizEntity.getId();
+        dto.question = quizEntity.getQuestion();
+        dto.description = quizEntity.getDescription();
+        dto.answers = quizEntity.getAnswers();
+        dto.multiple_correct_answers = quizEntity.getMultiple_correct_answers();
+        dto.correct_answers = quizEntity.getCorrect_answers();
+        dto.correct_answer = quizEntity.getCorrect_answer();
+        dto.explanation = quizEntity.getExplanation();
+        dto.tip = quizEntity.getTip();
+        dto.tags = quizEntity.getTags();
+        dto.category = quizEntity.getCategory();
+        dto.difficulty = quizEntity.getDifficulty();
         return dto;
     }
 }

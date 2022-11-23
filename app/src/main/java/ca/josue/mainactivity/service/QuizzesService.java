@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuizzesService {
 
     private static Retrofit api = null;
-    private static final String API_KEY = BuildConfig.QUIZZES_KEY;
+    private static final String URL = BuildConfig.QUIZZES_URL;
 
     public static Retrofit getApi(){
         if(api == null){
@@ -19,7 +19,7 @@ public class QuizzesService {
             OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 
             api =  new Retrofit.Builder()
-                    .baseUrl("https://quizapi.io/api/v1/")
+                    .baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();
