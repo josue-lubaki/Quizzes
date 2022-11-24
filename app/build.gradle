@@ -44,6 +44,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -53,7 +54,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${retrofit_vesion}"
 
     // navigation component
-//    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
+    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
 
     // added Room
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
@@ -66,5 +67,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     // Added Lottie
-    implementation 'com.airbnb.android:lottie:3.4.0'
+    implementation 'com.airbnb.android:lottie:4.2.2'
 }

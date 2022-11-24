@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/drawable/ic_home.xml" value="0.232" />
-        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/activity_main.xml" value="0.2640625" />
+        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
+        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/fragment_home.xml" value="0.3055555555555556" />
+        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/fragment_quiz_card.xml" value="0.3484375" />
+        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/fragment_quizzes.xml" value="0.1" />
+        <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/layout/fragment_quizzes_empty.xml" value="0.3055555555555556" />
         <entry key="..\:/GitHub/2022/Quizzes/app/src/main/res/menu/menu.xml" value="0.265625" />
       </map>
     </option>

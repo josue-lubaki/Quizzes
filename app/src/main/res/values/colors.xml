@@ -11,12 +11,17 @@
     <color name="red">#AD1919</color>
     <color name="BackgroundAnnonce">#434343</color>
     <color name="BackgroungTitre">#212121</color>
-    <color name="BackgroundNavBar">#85C0F7</color>
+    <color name="BackgroundCardContainer">#1A7BD5</color>
+    <color name="BackgroundCard">#9ECBF7</color>
     <color name="BackgroundSplash">#232323</color>
     <color name="ProgressBarBackground">#AFAFB0</color>
     <color name="progressBarIndicator">#A13D49</color>
     <color name="yellow">#F0CA69</color>
+    <color name="yellow_light">#ECDE65</color>
     <color name="gris_clair">#838383</color>
     <color name="green">#196A1C</color>
+    <color name="green_pale">#ABD9B4</color>
     <color name="vert">#266127</color>
+    <color name="khaki">#D68F1A</color>
+    <color name="blue">#084B8A</color>
 </resources>

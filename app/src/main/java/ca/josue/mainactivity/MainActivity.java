@@ -1,80 +1,61 @@
 package ca.josue.mainactivity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationBarView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
-import ca.josue.mainactivity.dto.QuizDto;;
-import ca.josue.mainactivity.entity.QuizEntity;
-import ca.josue.mainactivity.repository.QuizzesRepo;
-import ca.josue.mainactivity.service.QuizzesService;
-import ca.josue.mainactivity.service.api.QuizApi;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener{
-    private final String LOG_TAG = MainActivity.class.getSimpleName();
+import ca.josue.mainactivity.databinding.ActivityMainBinding;
+import ca.josue.mainactivity.ui.fragments.Home;
+import ca.josue.mainactivity.ui.fragments.Quizzes;
+
+public class MainActivity extends AppCompatActivity {
+    private final String TAG = MainActivity.class.getSimpleName();
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        retrieveAllQuestions();
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        configureNavigationBar();
     }
 
-    private void retrieveAllQuestions() {
-        QuizzesService
-            .getApi()
-            .create(QuizApi.class)
-            .getAllQuizzes()
-            .enqueue(new Callback<List<QuizDto>>() {
-                @Override
-                public void onResponse(@NonNull Call<List<QuizDto>> questions, @NonNull Response<List<QuizDto>> response) {
-                    if(!response.isSuccessful()) {
-                        return;
-                    }
+    private void configureNavigationBar() {
+        MeowBottomNavigation navBar = binding.navBar;
+        navBar.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
+        navBar.add(new MeowBottomNavigation.Model(2,R.drawable.ic_score));
+        navBar.add(new MeowBottomNavigation.Model(3,R.drawable.ic_profile));
+        navBar.setOnShowListener(item -> {
+            Class<? extends Fragment> fragment = null;
+            switch(item.getId()){
+                case 1:
+                    fragment = Home.class;
+                    Log.i(TAG,"show Home.class");
+                    break;
+                case 2:
+                    fragment = Quizzes.class;
+                    Log.i(TAG,"show Home.class");
+                    break;
+                case 3:
+                    fragment = Home.class;
+                    Log.i(TAG,"show Profile.class");
+                    break;
+            }
+            assert fragment != null;
+            showFragment(fragment);
+        });
 
-                    List<QuizDto> quizzes = response.body();
-
-                    if(quizzes == null || quizzes.isEmpty()) {
-                        Log.e(LOG_TAG, "onResponse: quizzes is null");
-                        return;
-                    }
-
-                    QuizEntity[] quizArray = getQuizEntitiesArray(quizzes);
-                    new QuizzesRepo(getApplication()).insertQuizzes(quizArray);
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<List<QuizDto>> call, @NonNull Throwable t) {
-                    Log.e(LOG_TAG, t.getMessage());
-                }
-            });
-    }
-
-    @NonNull
-    private QuizEntity[] getQuizEntitiesArray(List<QuizDto> quizzes) {
-        // transform List<QuizDto> to List<Quiz>
-        List<QuizEntity> quizEntities = quizzes
-                .stream()
-                .map(QuizDto::toEntity)
-                .collect(Collectors.toList());
-
-        // convert List<QuizEntity> to QuizEntity[]
-        QuizEntity[] quizArray = new QuizEntity[quizzes.size()];
-        quizArray = quizEntities.toArray(quizArray);
-        return quizArray;
+        navBar.show(1,true);
+        navBar.setOnClickMenuListener(item -> {});
+        navBar.setOnReselectListener(item -> {});
     }
 
     /*****************  Affichage des Fragments  *****************/
@@ -91,21 +72,22 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
         } catch(InstantiationException | IllegalAccessException e){
             e.printStackTrace();
-            Log.d(LOG_TAG,"erreur au moment d'instancier fragment");
+            Log.d(TAG,"erreur au moment d'instancier fragment");
         }
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        item.setChecked(true);
-        switch(item.getItemId()){
-            case R.id.optionHome:
-                return true;
-            case R.id.optionScore:
-                return true;
-            case R.id.optionProfile:
-                return true;
-        }
-        return false;
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.confirmExit)
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirmYes, (dialog, which) -> {
+                    MainActivity.super.onBackPressed();
+                })
+                .setNegativeButton(R.string.confirmNo, (dialog, which) -> {
+                    dialog.cancel();
+                })
+                .create()
+                .show();
     }
 }

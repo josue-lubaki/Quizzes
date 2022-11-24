@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/myBackground"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="58dp"/>
+        android:orientation="vertical"
+        android:background="@color/BackgroundCardContainer"
+        tools:context=".MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:theme="@style/Theme.MaterialComponents"
-        app:itemBackground="?android:attr/windowBackground"
-        app:layout_scrollFlags = "scroll|enterAlways"
-        app:menu = "@menu/main" />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+        />
 
-</RelativeLayout>
+        <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+            android:id="@+id/navBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mbn_circleColor="#F0CA69"
+            app:mbn_selectedIconColor="@color/BackgroundSplash"
+            app:mbn_countTextColor="@color/white"
+            app:mbn_countBackgroundColor="@color/progressBarIndicator"
+            app:mbn_defaultIconColor="@color/white"
+            app:mbn_backgroundBottomColor="@color/BackgroundSplash"
+            app:menu = "@menu/main"/>
+
+    </LinearLayout>
+</layout>

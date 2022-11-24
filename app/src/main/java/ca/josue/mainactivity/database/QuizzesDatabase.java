@@ -10,8 +10,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ca.josue.mainactivity.BuildConfig;
-import ca.josue.mainactivity.dao.QuizzesDao;
-import ca.josue.mainactivity.entity.QuizEntity;
+import ca.josue.mainactivity.data.data_source.local.dao.QuizzesDao;
+import ca.josue.mainactivity.domain.entity.QuizEntity;
 
 @Database(entities = { QuizEntity.class }, version = 1, exportSchema = false)
 public abstract class QuizzesDatabase extends RoomDatabase {
@@ -28,6 +28,7 @@ public abstract class QuizzesDatabase extends RoomDatabase {
     public static synchronized QuizzesDatabase getInstance(Context context){
         if(INSTANCE == null){
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), QuizzesDatabase.class, DATABASE_NAME)
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }
