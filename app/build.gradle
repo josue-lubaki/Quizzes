@@ -16,6 +16,9 @@ android {
             enabled true
         }
 
+        // Enabling multiDex support
+        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()
@@ -50,8 +53,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     // added Retrofit
-    implementation "com.squareup.retrofit2:retrofit:${retrofit_vesion}"
-    implementation "com.squareup.retrofit2:converter-gson:${retrofit_vesion}"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_vesion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_vesion"
 
     // navigation component
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
@@ -68,4 +71,7 @@ dependencies {
 
     // Added Lottie
     implementation 'com.airbnb.android:lottie:4.2.2'
+
+    // Added multiDex
+    implementation 'com.android.support:multidex:2.0.1'
 }

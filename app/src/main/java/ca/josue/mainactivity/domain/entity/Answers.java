@@ -18,14 +18,14 @@ public class Answers {
 
     public Answers(){}
 
-    public Answers(String answer_a, String answer_b, String answer_c, String answer_d, String answer_e, String answer_f) {
-        this.answer_a = answer_a;
-        this.answer_b = answer_b;
-        this.answer_c = answer_c;
-        this.answer_d = answer_d;
-        this.answer_e = answer_e;
-        this.answer_f = answer_f;
-    }
+//    public Answers(String answer_a, String answer_b, String answer_c, String answer_d, String answer_e, String answer_f) {
+//        this.answer_a = answer_a;
+//        this.answer_b = answer_b;
+//        this.answer_c = answer_c;
+//        this.answer_d = answer_d;
+//        this.answer_e = answer_e;
+//        this.answer_f = answer_f;
+//    }
 
     public String getAnswer_a() {
         return answer_a;

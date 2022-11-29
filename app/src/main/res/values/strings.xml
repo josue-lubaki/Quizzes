@@ -99,4 +99,6 @@
     <string name="confirmExit">Are you sure to want to Exit ?</string>
     <string name="confirmYes">Yes</string>
     <string name="confirmNo">No</string>
+    <string name="send_answers">Envoyer</string>
+    <string name="send_button">Send Answers</string>
 </resources>

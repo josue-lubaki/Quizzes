@@ -22,6 +22,7 @@ import java.util.Objects;
 import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
+import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 
@@ -55,9 +56,7 @@ public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesV
         QuizEntity quiz = quizzes.get(position);
         holder.question.setText(quiz.getQuestion());
 
-        // TODO : Enregistrer les réponses de chaque question dans un tableau
         Answers answers = answersRepo.getAnswerById(quiz.getId());
-//        List<String> answersList = new ArrayList<>();
         if(answers == null){
             return;
         }

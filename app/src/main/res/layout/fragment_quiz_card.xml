@@ -75,7 +75,7 @@
                 android:id="@+id/dropdown_answers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_light"
+                android:background="@color/BackgroundCardContainer"
                 android:padding="8dp"
                 android:spinnerMode="dropdown"
                 android:gravity="center_vertical"
