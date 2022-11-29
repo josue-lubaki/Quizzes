@@ -1,5 +1,7 @@
 package ca.josue.mainactivity.ui.adpater;
 
+import static ca.josue.mainactivity.BaseApplication.answersMapSession;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +21,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import ca.josue.mainactivity.BaseApplication;
 import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.utils.ResponseAnswer;
 
-public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesVH> implements AdapterView.OnItemSelectedListener {
+public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesVH> {
     private static final String TAG = QuizzesAdapter.class.getSimpleName();
     private final Context context;
     private List<QuizEntity> quizzes;
@@ -71,13 +75,50 @@ public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesV
 
         Log.d(TAG, "MainActivity - onBindViewHolder: " + answersMap);
 
+
         // convert HashMap to List<String
         List<String> answersList = new ArrayList<>(answersMap.values());
-        // filter non null values
         answersList.removeIf(Objects::isNull);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, answersList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner.setAdapter(adapter);
+
+        // set default value coming to answersMapSession
+        if(answersMapSession.containsKey(quiz.getId())){
+            ResponseAnswer defaultAnswer = answersMapSession.get(quiz.getId());
+            assert defaultAnswer != null;
+            holder.spinner.setSelection(adapter.getPosition(defaultAnswer.getResponse()));
+        }
+
+        holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "QuizzesAdapter - onItemSelected: " + parent.getItemAtPosition(position));
+                String answer = (String) parent.getItemAtPosition(position);
+
+                Map<Integer, String> answersAssertions = new HashMap<>();
+                answersAssertions.put(0, "answer_a");
+                answersAssertions.put(1, "answer_b");
+                answersAssertions.put(2, "answer_c");
+                answersAssertions.put(3, "answer_d");
+                answersAssertions.put(4, "answer_e");
+                answersAssertions.put(5, "answer_f");
+
+                if(!answersMapSession.containsKey(quiz.getId())){
+                    // add answer to map
+                    answersMapSession.put(quiz.getId(), new ResponseAnswer(answersAssertions.get(position), answer));
+                }
+                else {
+                    // replace answer in map with new answer
+                    answersMapSession.replace(quiz.getId(), new ResponseAnswer(answersAssertions.get(position), answer));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(TAG, "QuizzesAdapter - onNothingSelected: ");
+            }
+        });
     }
 
     @Override
@@ -89,14 +130,9 @@ public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesV
         this.quizzes = quizzes;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String answer = adapterView.getItemAtPosition(i).toString();
-        Log.d(TAG, "onItemSelected " + i + " : " + answer);
+    public List<QuizEntity> getQuizzes() {
+        return quizzes;
     }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     public static class QuizzesVH extends RecyclerView.ViewHolder {
         private final TextView question;

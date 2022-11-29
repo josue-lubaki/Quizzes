@@ -26,17 +26,18 @@
       </androidx.core.widget.NestedScrollView>
 
       <RelativeLayout
-          android:id="@+id/btn_login_in"
+          android:id="@+id/btn_send_answers"
           android:layout_width="wrap_content"
-          android:layout_height="30dp"
-          android:layout_gravity="center"
-          android:layout_marginHorizontal="140dp"
+          android:layout_height="35dp"
+          android:layout_gravity="end"
+          android:layout_marginStart="280dp"
+          android:layout_marginEnd="10dp"
           android:layout_marginTop="10dp"
-          android:layout_marginBottom="3dp"
-          android:gravity="center_vertical">
+          android:layout_marginBottom="10dp"
+          android:gravity="center">
 
          <ImageButton
-             android:id="@+id/btn_login"
+             android:id="@+id/btn_send"
              android:layout_width="match_parent"
              android:layout_height="60dp"
              android:background="@drawable/bg_white_rounded_large"
@@ -50,7 +51,7 @@
              android:gravity="center"
              android:text="@string/send_answers"
              android:textColor="@color/black"
-             android:textSize="13sp"
+             android:textSize="16sp"
              android:textStyle="bold" />
 
       </RelativeLayout>

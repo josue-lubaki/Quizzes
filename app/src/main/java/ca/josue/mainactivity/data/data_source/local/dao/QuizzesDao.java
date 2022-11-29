@@ -18,7 +18,7 @@ public interface QuizzesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertQuizzes(QuizEntity... quizzes);
 
-    @Query("SELECT * FROM quizzesTable")
+    @Query("SELECT * FROM quizzesTable WHERE correct_answer NOT NULL GROUP BY category, id")
     LiveData<List<QuizEntity>> getAllQuizzes();
 
     @Query("SELECT * FROM quizzesTable WHERE id = :id")

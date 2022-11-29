@@ -1,11 +1,17 @@
 package ca.josue.mainactivity.ui.fragments;
 
+import static ca.josue.mainactivity.BaseApplication.answersMapSession;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -16,8 +22,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
+import ca.josue.mainactivity.BaseApplication;
 import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.QuizzesRepo;
@@ -26,6 +36,7 @@ import ca.josue.mainactivity.databinding.FragmentQuizzesBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.ui.adpater.QuizzesAdapter;
+import ca.josue.mainactivity.utils.ResponseAnswer;
 
 public class Quizzes extends Fragment {
 
@@ -66,7 +77,28 @@ public class Quizzes extends Fragment {
         quizzesViewModel.getAllQuizzes().observe(getViewLifecycleOwner(), quizzes -> {
             adapter.setQuizzes(quizzes);
             recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
         });
+
+        ImageButton sendButton = binding.btnSend;
+        sendButton.setOnClickListener(this::validateAnswers);
+    }
+
+    private void validateAnswers(View view) {
+        List<QuizEntity> quizzes = adapter.getQuizzes();
+
+        // validate the answers
+        int score = quizzes.stream().mapToInt(quiz -> {
+            ResponseAnswer responseAnswer = answersMapSession.get(quiz.getId());
+            if (responseAnswer != null && quiz.getCorrect_answer().equals(responseAnswer.assertion)) {
+                return 1;
+            }
+            return 0;
+        }).sum();
+
+        BaseApplication.score = score;
+        BaseApplication.totalScore = quizzes.size();
+
+        Log.d(TAG, "score: " + score);
+        Toast.makeText(getContext(), "Score: " + score + " / " + quizzes.size(), Toast.LENGTH_SHORT).show();
     }
 }
