@@ -17,7 +17,7 @@ public class QuizEntity {
     private String question;
     private String description;
 
-    // exclude Answers answers from database Entity
+    // exclude AnswersDao answers from database Entity
     @Ignore
     private Answers answers;
     private String multiple_correct_answers;
@@ -140,7 +140,7 @@ public class QuizEntity {
     public String toString() {
         return "Question: " + question + "/n"
                 + "description: " + description + "/n"
-                + "Answers: " + answers + "/n"
+                + "AnswersDao: " + answers + "/n"
                 + "multiple_correct_answers: " + multiple_correct_answers + "/n"
                 + "Correct_answers: " + correct_answers + "/n"
                 + "correct_answer: " + correct_answer + "/n"

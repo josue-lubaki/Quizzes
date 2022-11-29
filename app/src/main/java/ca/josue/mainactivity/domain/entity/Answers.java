@@ -1,8 +1,14 @@
 package ca.josue.mainactivity.domain.entity;
 
-import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import ca.josue.mainactivity.domain.dto.QuizDto;
+
+@Entity(tableName = "answers")
 public class Answers {
+    @PrimaryKey
+    private long id;
     private String answer_a;
     private String answer_b;
     private String answer_c;
@@ -45,7 +51,15 @@ public class Answers {
         return answer_f;
     }
 
+    public long getId() {
+        return id;
+    }
+
     // Setter Methods
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setAnswer_a(String answer_a) {
         this.answer_a = answer_a;
@@ -74,7 +88,7 @@ public class Answers {
     // toString() method
     @Override
     public String toString() {
-        return "Answers{" +
+        return "AnswersDao{" +
                 "answer_a='" + answer_a + '\'' +
                 ", answer_b='" + answer_b + '\'' +
                 ", answer_c='" + answer_c + '\'' +
@@ -82,5 +96,17 @@ public class Answers {
                 ", answer_e='" + answer_e + '\'' +
                 ", answer_f='" + answer_f + '\'' +
                 '}';
+    }
+
+    public static Answers toEntity(QuizDto quizDto) {
+        Answers answers = new Answers();
+        answers.setId(quizDto.id);
+        answers.setAnswer_a(quizDto.answers.answer_a);
+        answers.setAnswer_b(quizDto.answers.answer_b);
+        answers.setAnswer_c(quizDto.answers.answer_c);
+        answers.setAnswer_d(quizDto.answers.answer_d);
+        answers.setAnswer_e(quizDto.answers.answer_e);
+        answers.setAnswer_f(quizDto.answers.answer_f);
+        return answers;
     }
 }

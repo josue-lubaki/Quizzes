@@ -75,12 +75,12 @@
                 android:id="@+id/dropdown_answers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/BackgroundCardContainer"
-                android:padding="@dimen/medium"
+                android:background="@color/blue_light"
+                android:padding="8dp"
                 android:spinnerMode="dropdown"
                 android:gravity="center_vertical"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center_horizontal"
                 />
 

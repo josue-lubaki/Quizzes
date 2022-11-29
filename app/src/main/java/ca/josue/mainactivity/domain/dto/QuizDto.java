@@ -28,7 +28,7 @@ public class QuizDto {
     public String toString() {
         return "Question " + id + " : " + question + "/n"
                 + "description: " + description + "/n"
-                + "Answers: " + answers + "/n"
+                + "AnswersDao: " + answers + "/n"
                 + "multiple_correct_answers: " + multiple_correct_answers + "/n"
                 + "Correct_answers: " + correct_answers + "/n"
                 + "correct_answer: " + correct_answer + "/n"

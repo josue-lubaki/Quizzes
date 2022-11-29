@@ -20,9 +20,11 @@ import java.util.stream.Collectors;
 
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiClient;
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
+import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.databinding.ActivitySplashScreenBinding;
 import ca.josue.mainactivity.data.repository.QuizzesRepo;
 import ca.josue.mainactivity.domain.dto.QuizDto;
+import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,7 +96,9 @@ public class SplashScreen extends AppCompatActivity {
                         }
 
                         QuizEntity[] quizArray = getQuizEntitiesArray(quizzes);
+                        Answers[] answersArray = getAnswersArray(quizzes);
                         new QuizzesRepo(getApplication()).insertQuizzes(quizArray);
+                        new AnswersRepo(getApplication()).insertAnswers(answersArray);
                     }
 
                     @Override
@@ -102,6 +106,17 @@ public class SplashScreen extends AppCompatActivity {
                         Log.e(TAG, t.getMessage());
                     }
                 });
+    }
+
+    private Answers[] getAnswersArray(List<QuizDto> quizzes) {
+         List<Answers> answers = quizzes
+                 .stream()
+                 .map(Answers::toEntity)
+                 .collect(Collectors.toList());
+
+         Answers[] answersArray = new Answers[answers.size()];
+         answersArray = answers.toArray(answersArray);
+         return answersArray;
     }
 
     @NonNull

@@ -10,13 +10,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ca.josue.mainactivity.BuildConfig;
+import ca.josue.mainactivity.data.data_source.local.dao.AnswersDao;
 import ca.josue.mainactivity.data.data_source.local.dao.QuizzesDao;
+import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 
-@Database(entities = { QuizEntity.class }, version = 1, exportSchema = false)
+@Database(entities = { QuizEntity.class, Answers.class }, version = 1, exportSchema = false)
 public abstract class QuizzesDatabase extends RoomDatabase {
 
     public abstract QuizzesDao quizzesDao();
+    public abstract AnswersDao answersDao();
 
     private static QuizzesDatabase INSTANCE;
     private static final String DATABASE_NAME = BuildConfig.QUIZZES_DB_NAME;
@@ -28,7 +31,6 @@ public abstract class QuizzesDatabase extends RoomDatabase {
     public static synchronized QuizzesDatabase getInstance(Context context){
         if(INSTANCE == null){
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), QuizzesDatabase.class, DATABASE_NAME)
-                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
         }
