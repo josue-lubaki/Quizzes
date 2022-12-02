@@ -15,6 +15,7 @@ import java.util.Objects;
 import ca.josue.mainactivity.databinding.ActivityMainBinding;
 import ca.josue.mainactivity.ui.fragments.Home;
 import ca.josue.mainactivity.ui.fragments.Quizzes;
+import ca.josue.mainactivity.utils.Menu;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
@@ -30,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void configureNavigationBar() {
         MeowBottomNavigation navBar = binding.navBar;
-        navBar.add(new MeowBottomNavigation.Model(1,R.drawable.ic_home));
-        navBar.add(new MeowBottomNavigation.Model(2,R.drawable.ic_score));
-        navBar.add(new MeowBottomNavigation.Model(3,R.drawable.ic_profile));
+        navBar.add(new MeowBottomNavigation.Model(Menu.HOME.getId(),R.drawable.ic_home));
+        navBar.add(new MeowBottomNavigation.Model(Menu.SCORE.getId(),R.drawable.ic_score));
+        navBar.add(new MeowBottomNavigation.Model(Menu.PROFILE.getId(), R.drawable.ic_profile));
         navBar.setOnShowListener(item -> {
             Class<? extends Fragment> fragment = null;
             switch(item.getId()){
@@ -55,7 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         navBar.show(1,true);
         navBar.setOnClickMenuListener(item -> {});
-        navBar.setOnReselectListener(item -> {});
+        navBar.setOnReselectListener(item -> {
+            if(item.getId() == Menu.HOME.getId()){
+                showFragment(Home.class);
+            }
+        });
     }
 
     /*****************  Affichage des Fragments  *****************/

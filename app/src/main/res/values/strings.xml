@@ -101,4 +101,18 @@
     <string name="confirmNo">No</string>
     <string name="send_answers">Envoyer</string>
     <string name="send_button">Send Answers</string>
+    <string name="welcome_app">Welcome in our quiz game</string>
+    <string name="welcome_presentation">You have many questions organized by category: HMTL, Linux, PHP, SQL, Bash, Docker, DevOps, etc...</string>
+    <string name="start_game">Start Game</string>
+    <string name="HTML">HMTL</string>
+    <string name="SQL">SQL</string>
+    <string name="docker">Docker</string>
+    <string name="bash">BASH</string>
+    <string name="csm">CMS</string>
+    <string name="linux">Linux</string>
+    <string name="devops">DevOps</string>
+    <string name="code">Code</string>
+    <string name="uncategorized">Uncategorized</string>
+    <string name="categories">Categories</string>
+    <string name="choice_category">Choose your quiz category</string>
 </resources>
