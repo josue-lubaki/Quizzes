@@ -24,6 +24,10 @@ public class QuizzesRepo {
         return allQuizzes;
     }
 
+    public LiveData<List<QuizEntity>> getQuizzesByCategory(String category) {
+        return quizzesDao.getQuizzesByCategory(category);
+    }
+
     public void insertQuiz(QuizEntity quiz) {
         QuizzesDatabase.databaseWriteExecutor.execute(() -> quizzesDao.insertQuiz(quiz));
     }

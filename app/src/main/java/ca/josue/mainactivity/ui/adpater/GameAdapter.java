@@ -2,6 +2,7 @@ package ca.josue.mainactivity.ui.adpater;
 
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,27 +22,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import ca.josue.mainactivity.BaseApplication;
+import ca.josue.mainactivity.Game;
 import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
-import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.utils.ResponseAnswer;
 
-public class QuizzesAdapter extends RecyclerView.Adapter<QuizzesAdapter.QuizzesVH> {
-    private static final String TAG = QuizzesAdapter.class.getSimpleName();
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
+    private static final String TAG = GameAdapter.class.getSimpleName();
     private final Context context;
     private List<QuizEntity> quizzes;
     private final AnswersRepo answersRepo;
-    private final MainActivity activity;
 
-    public QuizzesAdapter(Context context) {
+    public GameAdapter(Context context) {
         this.context = context;
         this.quizzes = new ArrayList<>();
-        this.activity = (MainActivity) context;
-        this.answersRepo = new AnswersRepo(activity.getApplication());
+        this.answersRepo = new AnswersRepo((Application) context);
     }
 
     public Context getContext() {

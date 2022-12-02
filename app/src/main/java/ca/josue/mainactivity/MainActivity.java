@@ -14,7 +14,6 @@ import java.util.Objects;
 
 import ca.josue.mainactivity.databinding.ActivityMainBinding;
 import ca.josue.mainactivity.ui.fragments.Home;
-import ca.josue.mainactivity.ui.fragments.Quizzes;
 import ca.josue.mainactivity.utils.Menu;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,8 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG,"show Home.class");
                     break;
                 case 2:
-                    fragment = Quizzes.class;
-                    Log.i(TAG,"show Home.class");
+                    fragment = Home.class;
                     break;
                 case 3:
                     fragment = Home.class;

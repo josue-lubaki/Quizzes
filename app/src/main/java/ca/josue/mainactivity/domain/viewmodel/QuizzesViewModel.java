@@ -24,6 +24,10 @@ public class QuizzesViewModel extends AndroidViewModel {
         return allQuizzes;
     }
 
+    public LiveData<List<QuizEntity>> getQuizzesByCategory(String category) {
+        return quizzesRepo.getQuizzesByCategory(category);
+    }
+
     public void insertQuiz(QuizEntity quiz) {
         quizzesRepo.insertQuiz(quiz);
     }

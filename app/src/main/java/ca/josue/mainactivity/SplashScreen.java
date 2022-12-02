@@ -26,6 +26,7 @@ import ca.josue.mainactivity.data.repository.QuizzesRepo;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.utils.Converter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,77 +60,17 @@ public class SplashScreen extends AppCompatActivity {
                 handler.post(() -> myProgress.setProgress(pStatus));
 
                 if (pStatus == 100) {
-                    new QuizzesRepo(this.getApplication()).start();
-                    retrieveAllQuestions();
-
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
 
                 try {
-                    Thread.sleep(80);
+                    Thread.sleep(75);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-    }
-
-    private void retrieveAllQuestions() {
-        QuizzesApiClient
-                .getApi()
-                .create(QuizzesApiService.class)
-                .getAllQuizzes()
-                .enqueue(new Callback<List<QuizDto>>() {
-                    @Override
-                    public void onResponse(@NonNull Call<List<QuizDto>> questions, @NonNull Response<List<QuizDto>> response) {
-                        if(!response.isSuccessful()) {
-                            return;
-                        }
-
-                        List<QuizDto> quizzes = response.body();
-
-                        if(quizzes == null || quizzes.isEmpty()) {
-                            Log.e(TAG, "onResponse: quizzes is null");
-                            return;
-                        }
-
-                        QuizEntity[] quizArray = getQuizEntitiesArray(quizzes);
-                        Answers[] answersArray = getAnswersArray(quizzes);
-                        new QuizzesRepo(getApplication()).insertQuizzes(quizArray);
-                        new AnswersRepo(getApplication()).insertAnswers(answersArray);
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<List<QuizDto>> call, @NonNull Throwable t) {
-                        Log.e(TAG, t.getMessage());
-                    }
-                });
-    }
-
-    private Answers[] getAnswersArray(List<QuizDto> quizzes) {
-         List<Answers> answers = quizzes
-                 .stream()
-                 .map(Answers::toEntity)
-                 .collect(Collectors.toList());
-
-         Answers[] answersArray = new Answers[answers.size()];
-         answersArray = answers.toArray(answersArray);
-         return answersArray;
-    }
-
-    @NonNull
-    private QuizEntity[] getQuizEntitiesArray(List<QuizDto> quizzes) {
-        // transform List<QuizDto> to List<Quiz>
-        List<QuizEntity> quizEntities = quizzes
-                .stream()
-                .map(QuizDto::toEntity)
-                .collect(Collectors.toList());
-
-        // convert List<QuizEntity> to QuizEntity[]
-        QuizEntity[] quizArray = new QuizEntity[quizzes.size()];
-        quizArray = quizEntities.toArray(quizArray);
-        return quizArray;
     }
 }

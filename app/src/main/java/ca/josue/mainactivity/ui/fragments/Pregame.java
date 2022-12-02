@@ -18,22 +18,11 @@ import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.databinding.FragmentPregameBinding;
 
 public class Pregame extends Fragment {
-    private static final String TAG = Pregame.class.getSimpleName();
     private FragmentPregameBinding binding;
-    private CardView cardHtml;
-    private CardView cardDocker;
-    private CardView cardSQL;
-    private CardView cardCMS;
-    private CardView cardLinux;
-    private CardView cardCode;
-    private CardView cardUncategorized;
-    private CardView cardBash;
-    private CardView cardDevops;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_pregame, container, false);
         return binding.getRoot();
     }
@@ -42,78 +31,68 @@ public class Pregame extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cardHtml = binding.cardHtml;
-        cardDocker = binding.cardDocker;
-        cardSQL = binding.cardSql;
-        cardCMS = binding.cardCms;
-        cardLinux = binding.cardLinux;
-        cardCode = binding.cardCode;
-        cardUncategorized = binding.cardUncategorized;
-        cardBash = binding.cardBash;
-        cardDevops = binding.cardDevops;
+        CardView cardHtml = binding.cardHtml;
+        CardView cardDocker = binding.cardDocker;
+        CardView cardLinux = binding.cardLinux;
+        CardView cardBash = binding.cardBash;
+        CardView cardDevops = binding.cardDevops;
+        CardView cardPHP = binding.cardPhp;
+        CardView cardJavascript = binding.cardJavascript;
+        CardView cardLaravel = binding.cardLaravel;
+        CardView cardWordPress = binding.cardWordpress;
+        CardView cardKubernetes = binding.cardKubernetes;
+        CardView cardMySQL = binding.cardMysql;
 
-        cardHtml.setOnClickListener(this::startGameHtml);
-        cardDocker.setOnClickListener(this::startGameDocker);
-        cardSQL.setOnClickListener(this::startGameSQL);
-        cardCMS.setOnClickListener(this::startGameCMS);
-        cardLinux.setOnClickListener(this::startGameLinux);
-        cardCode.setOnClickListener(this::startGameCode);
-        cardUncategorized.setOnClickListener(this::startGameUncategorized);
-        cardBash.setOnClickListener(this::startGameBash);
-        cardDevops.setOnClickListener(this::startGameDevops);
+        cardHtml.setOnClickListener((v) -> startGame("html"));
+        cardDocker.setOnClickListener((v) -> startGame("docker"));
+        cardLinux.setOnClickListener((v) -> startGame("linux"));
+        cardBash.setOnClickListener((v) -> startGame("bash"));
+        cardDevops.setOnClickListener((v) -> startGame("devops"));
+        cardPHP.setOnClickListener((v) -> startGame("php"));
+        cardJavascript.setOnClickListener((v) -> startGame("javascript"));
+        cardLaravel.setOnClickListener((v) -> startGame("laravel"));
+        cardWordPress.setOnClickListener((v) -> startGame("wordpress"));
+        cardKubernetes.setOnClickListener((v) -> startGame("kubernetes"));
+        cardMySQL.setOnClickListener((v) -> startGame("mysql"));
     }
 
-    private void startGameDevops(View view) {
+    private void startGame(String tag) {
         Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "devops");
-        startActivity(intent);
-    }
-
-    private void startGameBash(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "bash");
-        startActivity(intent);
-    }
-
-    private void startGameUncategorized(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "uncategorized");
-        startActivity(intent);
-    }
-
-    private void startGameCode(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "code");
-        startActivity(intent);
-    }
-
-    private void startGameLinux(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "Linux");
-        startActivity(intent);
-    }
-
-    private void startGameCMS(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "CMS");
-        startActivity(intent);
-    }
-
-    private void startGameSQL(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "SQL");
-        startActivity(intent);
-    }
-
-    private void startGameDocker(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "docker");
-        startActivity(intent);
-    }
-
-    private void startGameHtml(View view) {
-        Intent intent = new Intent(getActivity(), Loading.class);
-        intent.putExtra("category", "html");
+        switch(tag) {
+            case "html":
+                intent.putExtra("tag", "html");
+                break;
+            case "docker":
+                intent.putExtra("tag", "docker");
+                break;
+            case "linux":
+                intent.putExtra("tag", "linux");
+                break;
+            case "bash":
+                intent.putExtra("tag", "bash");
+                break;
+            case "devops":
+                intent.putExtra("tag", "devops");
+                break;
+            case "php":
+                intent.putExtra("tag", "php");
+                break;
+            case "javascript":
+                intent.putExtra("tag", "javascript");
+                break;
+            case "laravel":
+                intent.putExtra("tag", "laravel");
+                break;
+            case "wordpress":
+                intent.putExtra("tag", "wordpress");
+                break;
+            case "kubernetes":
+                intent.putExtra("tag", "kubernetes");
+                break;
+            case "mysql":
+                intent.putExtra("tag", "mysql");
+                break;
+        }
         startActivity(intent);
     }
 }

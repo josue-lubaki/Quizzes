@@ -115,4 +115,10 @@
     <string name="uncategorized">Uncategorized</string>
     <string name="categories">Categories</string>
     <string name="choice_category">Choose your quiz category</string>
+    <string name="mysql">MySQL</string>
+    <string name="php">PHP</string>
+    <string name="laravel">Laravel</string>
+    <string name="kubernetes">Kubernetes</string>
+    <string name="javascript">Javascript</string>
+    <string name="wordpress">WordPress</string>
 </resources>

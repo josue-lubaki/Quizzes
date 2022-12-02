@@ -9,24 +9,24 @@ import ca.josue.mainactivity.domain.enums.DifficultyEnum;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface QuizzesApiService {
-    String API_KEY = BuildConfig.QUIZZES_KEY;
-    String URL = "questions/?apiKey=" + API_KEY;
+    String URL = "questions/?apiKey=" + BuildConfig.QUIZZES_KEY;
 
-    @GET(URL + "&limit=10")
+    @GET(URL + "&limit=20")
     Call<List<QuizDto>> getAllQuizzes();
 
     // with tags
-    @GET(URL + "&limit=10&tags={tagType}")
-    Call<List<QuizDto>> getQuizzesByTags(@Path("tagType") String tagType);
+    @GET(URL+ "&limit=10")
+    Call<List<QuizDto>> getQuizzesByTags(@Query("tags") String tagType);
 
     // with category
-    @GET(URL + "&limit=10&category={categoryType}")
-    Call<List<QuizDto>> getQuizzesByCategory(@Path("categoryType") CategoryEnum category);
+    @GET(URL)
+    Call<List<QuizDto>> getQuizzesByCategory(@Query("category") String category);
 
     // with difficulty
-    @GET(URL + "&limit=10&difficulty={difficultyId}")
-    Call<List<QuizDto>> getQuizzesByDifficulty(@Path("difficultyId") DifficultyEnum difficultyId);
+    @GET(URL)
+    Call<List<QuizDto>> getQuizzesByDifficulty(@Query("difficulty") DifficultyEnum difficultyId);
 
 }
