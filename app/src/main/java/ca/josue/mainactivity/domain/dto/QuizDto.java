@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.Correct_answers;
@@ -50,7 +51,7 @@ public class QuizDto {
         quizEntity.setCorrect_answer(quizDto.correct_answer);
         quizEntity.setExplanation(quizDto.explanation);
         quizEntity.setTip(quizDto.tip);
-        quizEntity.setTags(quizDto.tags);
+        quizEntity.setTags(quizDto.tags.stream().map(Tag::getName).collect(Collectors.joining(",")));
         quizEntity.setCategory(quizDto.category);
         quizEntity.setDifficulty(quizDto.difficulty);
         return quizEntity;

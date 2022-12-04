@@ -48,6 +48,10 @@ public class QuizzesViewModel extends AndroidViewModel {
         return quizzesRepo.getQuizById(id);
     }
 
+    public int getSizeQuizzesTags(String tags) {
+        return quizzesRepo.getSizeQuizzesTags(tags);
+    }
+
     public int start() {
         return quizzesRepo.start();
     }

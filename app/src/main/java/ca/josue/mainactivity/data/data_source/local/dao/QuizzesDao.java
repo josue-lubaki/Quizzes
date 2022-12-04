@@ -18,11 +18,11 @@ public interface QuizzesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertQuizzes(QuizEntity... quizzes);
 
-    @Query("SELECT * FROM quizzesTable WHERE correct_answer NOT NULL GROUP BY category, id LIMIT 5")
+    @Query("SELECT * FROM quizzesTable WHERE correct_answer NOT NULL GROUP BY category, id")
     LiveData<List<QuizEntity>> getAllQuizzes();
 
-    @Query("SELECT * FROM quizzesTable WHERE correct_answer NOT NULL AND category LIKE :category LIMIT 5")
-    LiveData<List<QuizEntity>> getQuizzesByCategory(String category);
+    @Query("SELECT * FROM quizzesTable WHERE correct_answer NOT NULL AND tags LIKE '%' || :tags || '%' ORDER BY RANDOM() LIMIT 10")
+    LiveData<List<QuizEntity>> getQuizzesByCategory(String tags);
 
     @Query("SELECT * FROM quizzesTable WHERE id = :id")
     QuizEntity getQuizById(long id);
@@ -32,6 +32,9 @@ public interface QuizzesDao {
 
     @Query("DELETE FROM quizzesTable WHERE id = :id")
     void deleteQuiz(long id);
+
+    @Query("SELECT COUNT(*) FROM quizzesTable WHERE correct_answer NOT NULL AND tags LIKE '%' || :tags || '%'")
+    int getSizeQuizzesTags(String tags);
 
     @Query("SELECT 1")
     int start();

@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -21,11 +22,13 @@ import java.util.stream.Collectors;
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiClient;
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
+import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivitySplashScreenBinding;
 import ca.josue.mainactivity.data.repository.QuizzesRepo;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.domain.enums.TagsEnum;
 import ca.josue.mainactivity.utils.Converter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +63,9 @@ public class SplashScreen extends AppCompatActivity {
                 handler.post(() -> myProgress.setProgress(pStatus));
 
                 if (pStatus == 100) {
+                    // fetch all quizzes from API
+                    retrieveAllQuestions();
+
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -72,5 +78,37 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void retrieveAllQuestions() {
+        QuizzesApiClient
+                .getApi()
+                .create(QuizzesApiService.class)
+                .getAllQuizzes()
+                .enqueue(new Callback<List<QuizDto>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<QuizDto>> questions, @NonNull Response<List<QuizDto>> response) {
+                        if(!response.isSuccessful()) {
+                            return;
+                        }
+
+                        List<QuizDto> quizzes = response.body();
+
+                        if(quizzes == null || quizzes.isEmpty()) {
+                            Log.e(TAG, "onResponse: quizzes is null");
+                            return;
+                        }
+
+                        QuizEntity[] quizArray = Converter.getQuizEntitiesArray(quizzes);
+                        Answers[] answersArray = Converter.getAnswersArray(quizzes);
+                        new QuizzesRepo(getApplication()).insertQuizzes(quizArray);
+                        new AnswersRepo(getApplication()).insertAnswers(answersArray);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<QuizDto>> call, @NonNull Throwable t) {
+                        Log.e(TAG, t.getMessage());
+                    }
+                });
     }
 }

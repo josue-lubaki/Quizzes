@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textColor="@color/BackgroundAnnonce"
                 android:text="@string/choice_category"
                 android:gravity="center"

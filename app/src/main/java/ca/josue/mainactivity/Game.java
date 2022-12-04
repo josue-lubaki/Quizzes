@@ -2,12 +2,17 @@ package ca.josue.mainactivity;
 
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +45,10 @@ public class Game extends AppCompatActivity {
         LottieAnimationView myAnimation = binding.animationViewGame;
         myAnimation.playAnimation();
 
+
         Objects.requireNonNull(getSupportActionBar()).hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
@@ -60,24 +68,19 @@ public class Game extends AppCompatActivity {
         binding.setShowLoading(adapter.getQuizzes().size() == 0);
         QuizzesViewModel quizzesViewModel = new ViewModelProvider(this).get(QuizzesViewModel.class);
 
-        quizzesViewModel.getAllQuizzes().observe(this, quizzes -> {
-            binding.setShowLoading(quizzes.size() == 0);
-            adapter.setQuizzes(quizzes);
-            recyclerView.setAdapter(adapter);
-        });
-//        if (tag != null) {
-//            quizzesViewModel.getQuizzesByCategory(tag).observe(this, quizzes -> {
-//                binding.setShowLoading(quizzes.size() == 0);
-//                adapter.setQuizzes(quizzes);
-//                recyclerView.setAdapter(adapter);
-//            });
-//        } else {
-//            quizzesViewModel.getAllQuizzes().observe(this, quizzes -> {
-//                binding.setShowLoading(quizzes.size() == 0);
-//                adapter.setQuizzes(quizzes);
-//                recyclerView.setAdapter(adapter);
-//            });
-//        }
+        if (tag != null) {
+            quizzesViewModel.getQuizzesByCategory(tag).observe(this, quizzes -> {
+                binding.setShowLoading(quizzes.size() == 0);
+                adapter.setQuizzes(quizzes);
+                recyclerView.setAdapter(adapter);
+            });
+        } else {
+            quizzesViewModel.getAllQuizzes().observe(this, quizzes -> {
+                binding.setShowLoading(quizzes.size() == 0);
+                adapter.setQuizzes(quizzes);
+                recyclerView.setAdapter(adapter);
+            });
+        }
 
         ExtendedFloatingActionButton sendButton = binding.btnSend;
         sendButton.setOnClickListener(this::validateAnswers);

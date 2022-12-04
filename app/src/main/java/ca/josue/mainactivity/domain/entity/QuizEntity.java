@@ -28,8 +28,7 @@ public class QuizEntity {
     private String explanation;
     private String tip;
 
-    @Ignore
-    private List<Tag> tags = new ArrayList<>();
+    private String tags;
     private String category;
     private String difficulty;
 
@@ -78,7 +77,7 @@ public class QuizEntity {
         return category;
     }
 
-    public List<Tag> getTags() {
+    public String getTags() {
         return tags;
     }
 
@@ -128,7 +127,7 @@ public class QuizEntity {
         this.category = category;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -162,7 +161,7 @@ public class QuizEntity {
         dto.correct_answer = quizEntity.getCorrect_answer();
         dto.explanation = quizEntity.getExplanation();
         dto.tip = quizEntity.getTip();
-        dto.tags = quizEntity.getTags();
+//        dto.tags = quizEntity.getTags();
         dto.category = quizEntity.getCategory();
         dto.difficulty = quizEntity.getDifficulty();
         return dto;

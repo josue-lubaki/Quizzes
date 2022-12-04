@@ -3,6 +3,7 @@ package ca.josue.mainactivity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -23,7 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Hide the status bar. and make the app fullscreen
         Objects.requireNonNull(getSupportActionBar()).hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         configureNavigationBar();
     }

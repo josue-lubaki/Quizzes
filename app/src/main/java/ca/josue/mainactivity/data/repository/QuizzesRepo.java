@@ -48,6 +48,10 @@ public class QuizzesRepo {
         return quizzesDao.getQuizById(id);
     }
 
+    public int getSizeQuizzesTags(String tags) {
+        return quizzesDao.getSizeQuizzesTags(tags);
+    }
+
     public int start() {
         return quizzesDao.start();
     }

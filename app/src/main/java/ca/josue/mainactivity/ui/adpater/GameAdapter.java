@@ -1,19 +1,33 @@
 package ca.josue.mainactivity.ui.adpater;
 
+import static android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD;
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,8 +36,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import ca.josue.mainactivity.Game;
-import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.domain.entity.Answers;
@@ -36,10 +48,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
     private List<QuizEntity> quizzes;
     private final AnswersRepo answersRepo;
 
+    private final Animation animationFadeIn;
+
     public GameAdapter(Context context) {
         this.context = context;
         this.quizzes = new ArrayList<>();
         this.answersRepo = new AnswersRepo((Application) context);
+        this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
     }
 
     public Context getContext() {
@@ -53,9 +68,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         return new QuizzesVH(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull QuizzesVH holder, int position) {
         QuizEntity quiz = quizzes.get(position);
+
+        animationFadeIn.setDuration(1200);
+        holder.cardViewQuiz.setAnimation(animationFadeIn);
+
         holder.question.setText(quiz.getQuestion());
 
         Answers answers = answersRepo.getAnswerById(quiz.getId());
@@ -71,15 +91,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         answersMap.put("answer_e", answers.getAnswer_e());
         answersMap.put("answer_f", answers.getAnswer_f());
 
-        Log.d(TAG, "MainActivity - onBindViewHolder: " + answersMap);
-
-
         // convert HashMap to List<String
         List<String> answersList = new ArrayList<>(answersMap.values());
         answersList.removeIf(Objects::isNull);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, answersList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner.setAdapter(adapter);
+
+        if(quiz.getExplanation() != null){
+            holder.questionIdea.setOnClickListener(v -> createPopupWindow(v, quiz.getExplanation()));
+        }
+        else {
+            holder.questionIdea.setVisibility(View.GONE);
+        }
 
         // set default value coming to answersMapSession
         if(answersMapSession.containsKey(quiz.getId())){
@@ -91,7 +115,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "QuizzesAdapter - onItemSelected: " + parent.getItemAtPosition(position));
                 String answer = (String) parent.getItemAtPosition(position);
 
                 Map<Integer, String> answersAssertions = new HashMap<>();
@@ -119,6 +142,34 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void createPopupWindow(View v, String explanationMessage) {
+        PopupWindow popupWindow = new PopupWindow(context);
+
+        @SuppressLint("InflateParams")
+        View popupView = LayoutInflater.from(context).inflate(R.layout.popup_explanation, null);
+        popupWindow.setContentView(popupView);
+        popupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+        popupWindow.setFocusable(true);
+
+        // style of text in the popup
+        TextView explanation = popupView.findViewById(R.id.explanation);
+        explanation.setText(explanationMessage);
+        explanation.setGravity(Gravity.CENTER);
+        explanation.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        explanation.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+        explanation.setTypeface(Typeface.DEFAULT_BOLD);
+        explanation.setPadding(5,15,5,5);
+
+        // set animation fade in and fade out
+
+        animationFadeIn.setDuration(400);
+        popupView.startAnimation(animationFadeIn);
+        popupView.findViewById(R.id.close_popup).setOnClickListener(v1 -> popupWindow.dismiss());
+    }
+
     @Override
     public int getItemCount() {
         return quizzes.size();
@@ -136,10 +187,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         private final TextView question;
         private final Spinner spinner;
 
+        private final ImageView questionIdea;
+
+        private final CardView cardViewQuiz;
+
         public QuizzesVH(@NonNull View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.question);
             spinner = itemView.findViewById(R.id.dropdown_answers);
+            questionIdea = itemView.findViewById(R.id.questionIdea);
+            cardViewQuiz = itemView.findViewById(R.id.card_view_quiz);
         }
     }
 }

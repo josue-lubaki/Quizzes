@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,20 +39,20 @@ public class Loading extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         Objects.requireNonNull(getSupportActionBar()).hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle!= null) {
-            String tag = bundle.getString("tag");
-            if(tag != null) {
-                new QuizzesRepo(this.getApplication()).deleteAllQuizzes();
-                fetchQuiz(tag);
-            }
-            prepareQuiz(tag);
+        assert bundle != null;
+        String tag = bundle.getString("tag");
+        if(tag != null) {
+            fetchQuizzes(tag);
         }
+        prepareQuiz(tag);
     }
 
-    private void fetchQuiz(String tag) {
+    private void fetchQuizzes(String tag) {
         boolean isTagsValid = Arrays.stream(TagsEnum.values())
                 .anyMatch(categoryEnum -> categoryEnum.name().equalsIgnoreCase(tag));
 
