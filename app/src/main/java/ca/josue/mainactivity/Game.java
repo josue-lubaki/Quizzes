@@ -32,13 +32,12 @@ public class Game extends AppCompatActivity {
 
     private String tag = null;
     private ActivityGameBinding binding;
-    private LottieAnimationView myAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_game);
-        myAnimation = binding.animationViewGame;
+        LottieAnimationView myAnimation = binding.animationViewGame;
         myAnimation.playAnimation();
 
         Objects.requireNonNull(getSupportActionBar()).hide();

@@ -121,4 +121,5 @@
     <string name="kubernetes">Kubernetes</string>
     <string name="javascript">Javascript</string>
     <string name="wordpress">WordPress</string>
+    <string name="channel_name">Quiz_Channel</string>
 </resources>
