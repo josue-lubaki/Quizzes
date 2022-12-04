@@ -18,4 +18,8 @@ public enum TagsEnum {
     TagsEnum(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
 }

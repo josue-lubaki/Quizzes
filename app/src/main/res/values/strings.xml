@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">Quizzes</string>
     <string name="home">Home</string>
     <string name="score">Score</string>
     <string name="profile">Profile</string>

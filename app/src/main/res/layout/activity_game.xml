@@ -25,6 +25,44 @@
             android:visibility="@{showLoading ? View.VISIBLE : View.GONE}"
             />
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/layout_group_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_conversation"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Widget.AppCompat.Toolbar"
+                android:background="@color/BackgroundSplash"
+                app:popupTheme="@style/Theme.AppCompat.Light">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:layout_marginEnd="18dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/yellow"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="22sp"
+                        android:text="@string/app_name"/>
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"

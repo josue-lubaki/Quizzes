@@ -1,342 +1,376 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/BackgroundCard"
-        android:gravity="center"
+        android:orientation="vertical"
         >
-
-        <TextView
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/layout_group_chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            android:text="@string/categories"
-            android:gravity="center"
-            />
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            android:textColor="@color/BackgroundAnnonce"
-            android:text="@string/choice_category"
-            android:gravity="center"
-            />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_conversation"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Widget.AppCompat.Toolbar"
+                android:background="@color/BackgroundSplash"
+                app:popupTheme="@style/Theme.AppCompat.Light">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:layout_marginEnd="18dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/yellow"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="22sp"
+                        android:text="@string/categories"/>
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:background="@color/BackgroundCard"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_margin="2dp"
             >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_html"
-                android:layout_width="0dp"
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="@color/BackgroundAnnonce"
+                android:text="@string/choice_category"
+                android:gravity="center"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_html"
-                    android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_margin="2dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_html"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/HTML"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_html"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/HTML"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_linux"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp">
-                <TextView
-                    android:id="@+id/tv_linux"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_linux"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/linux"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp">
+                    <TextView
+                        android:id="@+id/tv_linux"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/linux"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_docker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_docker"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_docker"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/docker"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_docker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/docker"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="2dp"
-            >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_bash"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_bash"
-                    android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="2dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_bash"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/bash"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_bash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/bash"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_kubernetes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_kubernetes"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_kubernetes"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/kubernetes"
-                    android:textColor="@color/blue_light"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:paddingVertical="13dp"
-                    android:paddingHorizontal="10dp"/>
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_kubernetes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kubernetes"
+                        android:textColor="@color/blue_light"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:paddingVertical="13dp"
+                        android:paddingHorizontal="10dp"/>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_devops"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_devops"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_devops"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/devops"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_devops"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/devops"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_margin="2dp"
-            >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_mysql"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_mysql"
-                    android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_margin="2dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_mysql"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/mysql"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_mysql"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mysql"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_php"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp">
-                <TextView
-                    android:id="@+id/tv_php"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_php"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/php"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp">
+                    <TextView
+                        android:id="@+id/tv_php"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/php"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_laravel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp">
-                <TextView
-                    android:id="@+id/tv_laravel"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_laravel"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/laravel"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:gravity="center"
-                    android:textStyle="bold"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:paddingVertical="15dp" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp">
+                    <TextView
+                        android:id="@+id/tv_laravel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/laravel"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:paddingVertical="15dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_margin="2dp"
-            >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_javascript"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:id="@+id/tv_javascript"
-                    android:layout_width="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_margin="2dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_javascript"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/javascript"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_javascript"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/javascript"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_wordpress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/BackgroundCardContainer"
-                app:cardCornerRadius="@dimen/medium"
-                android:elevation="5dp">
-                <TextView
-                    android:id="@+id/tv_wordpress"
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_wordpress"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wordpress"
-                    android:textColor="@color/blue_light"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:layout_gravity="center"
-                    android:padding="13dp" />
-            </androidx.cardview.widget.CardView>
+                    android:backgroundTint="@color/BackgroundCardContainer"
+                    app:cardCornerRadius="@dimen/medium"
+                    android:elevation="5dp">
+                    <TextView
+                        android:id="@+id/tv_wordpress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wordpress"
+                        android:textColor="@color/blue_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center"
+                        android:padding="13dp" />
+                </androidx.cardview.widget.CardView>
 
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

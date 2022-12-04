@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
+
 import ca.josue.mainactivity.Loading;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.databinding.FragmentPregameBinding;
+import ca.josue.mainactivity.domain.enums.TagsEnum;
 
 public class Pregame extends Fragment {
     private FragmentPregameBinding binding;
@@ -58,39 +61,40 @@ public class Pregame extends Fragment {
 
     private void startGame(String tag) {
         Intent intent = new Intent(getActivity(), Loading.class);
+
         switch(tag) {
             case "html":
-                intent.putExtra("tag", "html");
+                intent.putExtra("tag", TagsEnum.HTML.getName());
                 break;
             case "docker":
-                intent.putExtra("tag", "docker");
+                intent.putExtra("tag", TagsEnum.DOCKER.getName());
                 break;
             case "linux":
-                intent.putExtra("tag", "linux");
+                intent.putExtra("tag", TagsEnum.LINUX.getName());
                 break;
             case "bash":
-                intent.putExtra("tag", "bash");
+                intent.putExtra("tag", TagsEnum.BASH.getName());
                 break;
             case "devops":
-                intent.putExtra("tag", "devops");
+                intent.putExtra("tag", TagsEnum.DEVOPS.getName());
                 break;
             case "php":
-                intent.putExtra("tag", "php");
+                intent.putExtra("tag", TagsEnum.PHP.getName());
                 break;
             case "javascript":
-                intent.putExtra("tag", "javascript");
+                intent.putExtra("tag", TagsEnum.JAVASCRIPT.getName());
                 break;
             case "laravel":
-                intent.putExtra("tag", "laravel");
+                intent.putExtra("tag", TagsEnum.LARAVEL.getName());
                 break;
             case "wordpress":
-                intent.putExtra("tag", "wordpress");
+                intent.putExtra("tag", TagsEnum.WORDPRESS.getName());
                 break;
             case "kubernetes":
-                intent.putExtra("tag", "kubernetes");
+                intent.putExtra("tag", TagsEnum.KUBERNETES.getName());
                 break;
             case "mysql":
-                intent.putExtra("tag", "mysql");
+                intent.putExtra("tag", TagsEnum.MYSQL.getName());
                 break;
         }
         startActivity(intent);
