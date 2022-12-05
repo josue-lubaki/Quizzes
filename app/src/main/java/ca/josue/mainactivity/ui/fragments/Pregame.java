@@ -12,8 +12,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.Arrays;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import ca.josue.mainactivity.Loading;
 import ca.josue.mainactivity.R;
@@ -22,6 +23,10 @@ import ca.josue.mainactivity.domain.enums.TagsEnum;
 
 public class Pregame extends Fragment {
     private FragmentPregameBinding binding;
+    private LinearLayout line1;
+    private LinearLayout line2;
+    private LinearLayout line3;
+    private LinearLayout line4;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,17 +39,38 @@ public class Pregame extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_400);
+        Animation animation2 = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_600);
+        Animation animation3 = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_800);
+        Animation animation4 = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_1000);
+
+        line1 = binding.line1;
+        line1.setAnimation(animation);
+
+        line2 = binding.line2;
+        line2.setAnimation(animation2);
+
+        line3 = binding.line3;
+        line3.setAnimation(animation3);
+
+        line4 = binding.line4;
+        line4.setAnimation(animation4);
+
+
         CardView cardHtml = binding.cardHtml;
         CardView cardDocker = binding.cardDocker;
         CardView cardLinux = binding.cardLinux;
+
         CardView cardBash = binding.cardBash;
-        CardView cardDevops = binding.cardDevops;
-        CardView cardPHP = binding.cardPhp;
-        CardView cardJavascript = binding.cardJavascript;
-        CardView cardLaravel = binding.cardLaravel;
-        CardView cardWordPress = binding.cardWordpress;
         CardView cardKubernetes = binding.cardKubernetes;
+        CardView cardDevops = binding.cardDevops;
+
         CardView cardMySQL = binding.cardMysql;
+        CardView cardPHP = binding.cardPhp;
+        CardView cardLaravel = binding.cardLaravel;
+
+        CardView cardJavascript = binding.cardJavascript;
+        CardView cardWordPress = binding.cardWordpress;
 
         cardHtml.setOnClickListener((v) -> startGame("html"));
         cardDocker.setOnClickListener((v) -> startGame("docker"));

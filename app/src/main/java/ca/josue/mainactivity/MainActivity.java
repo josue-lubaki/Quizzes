@@ -49,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void changeNavBar(Menu menu, boolean animation) {
+        navBar.show(menu.getId(), animation);
+    }
+
     private void configureNavigationBar() {
         navBar.add(new MeowBottomNavigation.Model(Menu.HOME.getId(),R.drawable.ic_home));
-        navBar.add(new MeowBottomNavigation.Model(Menu.PREGAME.getId(),R.drawable.ic_score));
+        navBar.add(new MeowBottomNavigation.Model(Menu.PREGAME.getId(),R.drawable.ic_game));
         navBar.add(new MeowBottomNavigation.Model(Menu.PROFILE.getId(), R.drawable.ic_profile));
         navBar.setOnShowListener(item -> {
             Class<? extends Fragment> fragment = null;

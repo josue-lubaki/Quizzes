@@ -6,7 +6,6 @@ import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -54,7 +52,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
         this.context = context;
         this.quizzes = new ArrayList<>();
         this.answersRepo = new AnswersRepo((Application) context);
-        this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+        this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in_400);
     }
 
     public Context getContext() {
