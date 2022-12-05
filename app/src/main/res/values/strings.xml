@@ -122,4 +122,6 @@
     <string name="javascript">Javascript</string>
     <string name="wordpress">WordPress</string>
     <string name="channel_name">Quiz_Channel</string>
+    <string name="notification_title">Quiz Results</string>
+    <string name="notification_message">"Congratulation ! \nYour score is "</string>
 </resources>

@@ -9,15 +9,13 @@ android {
         applicationId "ca.josue.mainactivity"
         minSdk 28
         targetSdk 32
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
         dataBinding {
             enabled true
         }
-
-        // Enabling multiDex support
-        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -73,5 +71,5 @@ dependencies {
     implementation 'com.airbnb.android:lottie:4.2.2'
 
     // Added multiDex
-    implementation 'com.android.support:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

@@ -2,17 +2,24 @@ package ca.josue.mainactivity;
 
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,17 +29,21 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import ca.josue.mainactivity.databinding.ActivityGameBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.ui.adpater.GameAdapter;
+import ca.josue.mainactivity.utils.Menu;
 import ca.josue.mainactivity.utils.ResponseAnswer;
 
 public class Game extends AppCompatActivity {
 
     private static final String TAG = Game.class.getSimpleName();
+    private static final String CHANNEL_ID = "ca.josue.game.default.level";
+    public static final String GAME_NOTIFICATION = "ca.josue.game.notification";
     private GameAdapter adapter;
 
     private String tag = null;
@@ -45,6 +56,8 @@ public class Game extends AppCompatActivity {
         LottieAnimationView myAnimation = binding.animationViewGame;
         myAnimation.playAnimation();
 
+        // create notification channel
+        createNotificationChannel();
 
         Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -92,16 +105,71 @@ public class Game extends AppCompatActivity {
         // validate the answers
         int score = quizzes.stream().mapToInt(quiz -> {
             ResponseAnswer responseAnswer = answersMapSession.get(quiz.getId());
-            if (responseAnswer != null && quiz.getCorrect_answer().equals(responseAnswer.assertion)) {
+            if (responseAnswer != null && quiz.getCorrect_answer().equalsIgnoreCase(responseAnswer.assertion)) {
                 return 1;
             }
             return 0;
         }).sum();
 
-        BaseApplication.score = score;
-        BaseApplication.totalScore = quizzes.size();
+        // send Notification to the user with the score
+        sendNotification(score, quizzes.size());
 
-        Log.d(TAG, "score: " + score);
-        Toast.makeText(this, "Score: " + score + " / " + quizzes.size(), Toast.LENGTH_SHORT).show();
+        // navigate to Home
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void sendNotification(int score, int size) {
+
+        // build long text message
+        StringBuilder message = new StringBuilder();
+        message.append("You have ").append(score).append(" correct answers out of ").append(size).append(" questions in the category: ").append(tag);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(GAME_NOTIFICATION, Menu.PREGAME.getId());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notificationBuilder =
+            new NotificationCompat
+                .Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_message)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.message2))
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_message) + resolvePercentage(score, size))
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
+                .setGroup(CHANNEL_ID)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManager notificationManager =  (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(2022, notificationBuilder.build());
+    }
+
+    private String resolvePercentage(int score, int size) {
+        return String.format(Locale.CANADA, " (%d%%)", (score * 100) / size);
+    }
+
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            CharSequence name = getString(R.string.channel_name);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.enableVibration(true);
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
+            channel.setSound(RingtoneManager
+                            .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
+                    Notification.AUDIO_ATTRIBUTES_DEFAULT);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

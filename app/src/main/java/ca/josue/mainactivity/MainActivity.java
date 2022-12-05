@@ -1,5 +1,7 @@
 package ca.josue.mainactivity;
 
+import static ca.josue.mainactivity.Game.GAME_NOTIFICATION;
+
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.multidex.MultiDex;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
@@ -15,11 +18,13 @@ import java.util.Objects;
 
 import ca.josue.mainactivity.databinding.ActivityMainBinding;
 import ca.josue.mainactivity.ui.fragments.Home;
+import ca.josue.mainactivity.ui.fragments.Pregame;
 import ca.josue.mainactivity.utils.Menu;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
+    private MeowBottomNavigation navBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +36,22 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        navBar = binding.navBar;
         configureNavigationBar();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) return;
+
+        int menu = bundle.getInt(GAME_NOTIFICATION);
+        if (menu != 0 && menu == Menu.PREGAME.getId()) {
+            navBar.show(Menu.PREGAME.getId(), false);
+            showFragment(Pregame.class);
+        }
     }
 
     private void configureNavigationBar() {
-        MeowBottomNavigation navBar = binding.navBar;
         navBar.add(new MeowBottomNavigation.Model(Menu.HOME.getId(),R.drawable.ic_home));
-        navBar.add(new MeowBottomNavigation.Model(Menu.SCORE.getId(),R.drawable.ic_score));
+        navBar.add(new MeowBottomNavigation.Model(Menu.PREGAME.getId(),R.drawable.ic_score));
         navBar.add(new MeowBottomNavigation.Model(Menu.PROFILE.getId(), R.drawable.ic_profile));
         navBar.setOnShowListener(item -> {
             Class<? extends Fragment> fragment = null;
@@ -47,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG,"show Home.class");
                     break;
                 case 2:
-                    fragment = Home.class;
+                    fragment = Pregame.class;
                     break;
                 case 3:
                     fragment = Home.class;

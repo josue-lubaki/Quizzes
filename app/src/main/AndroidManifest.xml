@@ -3,6 +3,7 @@
     package="ca.josue.mainactivity">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,7 @@
         android:roundIcon="@mipmap/quizzes"
         android:supportsRtl="true"
         android:theme="@style/Theme.MainActivity">
+
         <activity
             android:name=".Game"
             android:exported="false" />
