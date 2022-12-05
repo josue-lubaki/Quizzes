@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         navBar = binding.navBar;
         navBar.add(new MeowBottomNavigation.Model(Menu.HOME.getId(),R.drawable.ic_home));
         navBar.add(new MeowBottomNavigation.Model(Menu.PREGAME.getId(),R.drawable.ic_game));
-        navBar.add(new MeowBottomNavigation.Model(Menu.PROFILE.getId(), R.drawable.ic_score));
+        navBar.add(new MeowBottomNavigation.Model(Menu.STATS.getId(), R.drawable.ic_score));
         navBar.setOnShowListener(item -> {
             Class<? extends Fragment> fragment = null;
             switch(item.getId()){
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
         if (bundle == null) return;
 
         int menu = bundle.getInt(GAME_NOTIFICATION);
-        if (menu != 0 && menu == Menu.PREGAME.getId()) {
-            changeNavBar(Menu.PREGAME, false);
-            showFragment(Pregame.class);
+        if (menu != 0 && menu == Menu.STATS.getId()) {
+            changeNavBar(Menu.STATS, false);
+            showFragment(Stats.class);
         }
     }
 

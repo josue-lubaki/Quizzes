@@ -2,7 +2,9 @@ package ca.josue.mainactivity.utils;
 
 import androidx.annotation.NonNull;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import ca.josue.mainactivity.domain.dto.QuizDto;
@@ -33,5 +35,11 @@ public class Converter {
         QuizEntity[] quizArray = new QuizEntity[quizzes.size()];
         quizArray = quizEntities.toArray(quizArray);
         return quizArray;
+    }
+
+    public static String toTimeStr(Date time) {
+        String date = android.text.format.DateFormat.format("dd/MM/yyyy", time).toString();
+        String timeStr = android.text.format.DateFormat.format("HH:mm", time).toString();
+        return String.format(Locale.getDefault(), "%s - %s", date, timeStr);
     }
 }

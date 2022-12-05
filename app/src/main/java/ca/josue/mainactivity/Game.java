@@ -28,22 +28,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import ca.josue.mainactivity.data.repository.StatsRepo;
 import ca.josue.mainactivity.databinding.ActivityGameBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.domain.entity.StatEntity;
 import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.ui.adpater.GameAdapter;
+import ca.josue.mainactivity.utils.Converter;
 import ca.josue.mainactivity.utils.Menu;
 import ca.josue.mainactivity.utils.ResponseAnswer;
 
 public class Game extends AppCompatActivity {
-
-    private static final String TAG = Game.class.getSimpleName();
-    private static final String CHANNEL_ID = "ca.josue.game.default.level";
-    public static final String GAME_NOTIFICATION = "ca.josue.game.notification";
+    private static final String CHANNEL_ID = Game.class.getSimpleName() + ".channel";
+    public static final String GAME_NOTIFICATION = Game.class.getSimpleName() + ".notification";
+    public static final String TAGS = Game.class.getSimpleName() + ".tag";
     private GameAdapter adapter;
 
     private String tag = null;
@@ -65,7 +68,7 @@ public class Game extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            tag = bundle.getString("tag");
+            tag = bundle.getString(TAGS);
         }
 
         renderResults(tag);
@@ -113,11 +116,20 @@ public class Game extends AppCompatActivity {
 
         // send Notification to the user with the score
         sendNotification(score, quizzes.size());
+        saveStats(score, quizzes);
 
         // navigate to Home
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void saveStats(int score, List<QuizEntity> quizzes) {
+        String tag = quizzes.get(0).getTags();
+        int total = quizzes.size();
+
+        new StatsRepo(this.getApplication())
+                .insertStats(new StatEntity(tag, score, total));
     }
 
     private void sendNotification(int score, int size) {
@@ -127,7 +139,7 @@ public class Game extends AppCompatActivity {
         message.append("You have ").append(score).append(" correct answers out of ").append(size).append(" questions in the category: ").append(tag);
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(GAME_NOTIFICATION, Menu.PREGAME.getId());
+        intent.putExtra(GAME_NOTIFICATION, Menu.STATS.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
 

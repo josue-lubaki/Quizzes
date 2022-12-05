@@ -23,10 +23,6 @@ import ca.josue.mainactivity.domain.enums.TagsEnum;
 
 public class Pregame extends Fragment {
     private FragmentPregameBinding binding;
-    private LinearLayout line1;
-    private LinearLayout line2;
-    private LinearLayout line3;
-    private LinearLayout line4;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -44,16 +40,16 @@ public class Pregame extends Fragment {
         Animation animation3 = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_800);
         Animation animation4 = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_1000);
 
-        line1 = binding.line1;
+        LinearLayout line1 = binding.line1;
         line1.setAnimation(animation);
 
-        line2 = binding.line2;
+        LinearLayout line2 = binding.line2;
         line2.setAnimation(animation2);
 
-        line3 = binding.line3;
+        LinearLayout line3 = binding.line3;
         line3.setAnimation(animation3);
 
-        line4 = binding.line4;
+        LinearLayout line4 = binding.line4;
         line4.setAnimation(animation4);
 
 

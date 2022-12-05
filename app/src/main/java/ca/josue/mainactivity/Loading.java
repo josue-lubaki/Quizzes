@@ -1,16 +1,14 @@
 package ca.josue.mainactivity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import static ca.josue.mainactivity.Game.TAGS;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,6 @@ import ca.josue.mainactivity.data.repository.QuizzesRepo;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
-import ca.josue.mainactivity.domain.enums.CategoryEnum;
 import ca.josue.mainactivity.domain.enums.TagsEnum;
 import ca.josue.mainactivity.utils.Converter;
 import retrofit2.Call;
@@ -90,7 +87,7 @@ public class Loading extends AppCompatActivity {
 
     private void prepareQuiz(String tag) {
        Intent intent = new Intent(this, Game.class);
-       intent.putExtra("tag", tag);
+       intent.putExtra(TAGS, tag);
        startActivity(intent);
        finish();
     }
