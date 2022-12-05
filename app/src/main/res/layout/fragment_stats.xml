@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
@@ -8,22 +8,22 @@
             type="boolean" />
         <import type="android.view.View" />
     </data>
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{showLoading ? @color/white : @color/blue}"
+        android:background="@{showLoading ? @color/white : @color/BackgroundCard}"
         android:orientation="vertical">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view_game"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/medium"
-            app:lottie_rawRes="@raw/loading_motion"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"
-            android:visibility="@{showLoading ? View.VISIBLE : View.GONE}"
-            />
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/animation_view_game"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="@dimen/medium"-->
+<!--        app:lottie_rawRes="@raw/loading_motion"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        android:visibility="@{showLoading ? View.VISIBLE : View.GONE}"-->
+<!--        />-->
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/layout_group_chat"
@@ -57,7 +57,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textSize="22sp"
-                        android:text="@string/game"/>
+                        android:text="@string/stats"/>
 
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
@@ -68,39 +68,41 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            tools:context=".ui.fragments.Quizzes">
+            tools:context=".ui.fragments.Stats">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/blue"
+                android:background="@color/BackgroundCard"
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewGame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/blue"
-                    tools:listitem="@layout/fragment_quiz_card"
-                    />
+                    android:background="@color/BackgroundCard"
+                    tools:listitem="@layout/stats_card"
+                />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/btn_send"
+                    android:id="@+id/btn_delete_all"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="bottom|center"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginBottom="10dp"
                     app:icon="@drawable/send"
-                    android:text="@string/send_answers"
-                    android:textColor="@color/black"
+                    app:iconTint="@color/white"
+                    android:text="@string/delete_all"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="12sp"
-                    android:backgroundTint="@color/yellow"
+                    android:backgroundTint="@color/progressBarIndicator"
                     app:fabSize="mini"
-                    app:rippleColor="@color/green"
+                    app:rippleColor="@color/red"
                     android:contentDescription="@string/send_answers" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
     </LinearLayout>
 </layout>

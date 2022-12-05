@@ -28,7 +28,7 @@
             app:mbn_countBackgroundColor="@color/progressBarIndicator"
             app:mbn_defaultIconColor="@color/white"
             app:mbn_backgroundBottomColor="@color/BackgroundSplash"
-            app:menu = "@menu/main"/>
+            />
 
     </LinearLayout>
 </layout>

@@ -124,4 +124,13 @@
     <string name="channel_name">Quiz_Channel</string>
     <string name="notification_title">Quiz Results</string>
     <string name="notification_message">"Congratulation ! \nYour score is "</string>
+    <string name="game">Game</string>
+    <string name="stats">My Stats</string>
+    <string name="delete_all">Delete All</string>
+    <string name="PreGame">PreGame</string>
+    <string name="category">Category</string>
+    <string name="tag">Tag</string>
+    <string name="scoreDesc">Score</string>
+    <string name="double_point">:</string>
+    <string name="date">Date</string>
 </resources>
