@@ -25,13 +25,11 @@ public class Stats extends Fragment {
 
     private FragmentStatsBinding binding;
     private StatsAdapter adapter;
-    private ExtendedFloatingActionButton btnDeleteAll;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats, container, false);
         return binding.getRoot();
     }
@@ -69,7 +67,7 @@ public class Stats extends Fragment {
             adapter.setStats(stats);
         });
 
-        btnDeleteAll = binding.btnDeleteAll;
+        ExtendedFloatingActionButton btnDeleteAll = binding.btnDeleteAll;
         btnDeleteAll.setOnClickListener(v -> viewModel.deleteStats());
     }
 }

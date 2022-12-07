@@ -104,8 +104,8 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     app:fabSize="mini"
-                    app:icon="@drawable/send"
-                    app:iconTint="@color/white"
+                    app:icon="@drawable/trash"
+                    app:iconTint="@color/yellow"
                     app:rippleColor="@color/red" />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

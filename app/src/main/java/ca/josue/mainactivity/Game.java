@@ -135,8 +135,13 @@ public class Game extends AppCompatActivity {
     private void sendNotification(int score, int size) {
 
         // build long text message
-        StringBuilder message = new StringBuilder();
-        message.append("You have ").append(score).append(" correct answers out of ").append(size).append(" questions in the category: ").append(tag);
+        StringBuilder message = new StringBuilder()
+                .append("You have ")
+                .append(score)
+                .append(" correct answers out of ")
+                .append(size)
+                .append(" questions in the category: ")
+                .append(tag);
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(GAME_NOTIFICATION, Menu.STATS.getId());
@@ -175,7 +180,7 @@ public class Game extends AppCompatActivity {
             channel.enableVibration(true);
             channel.enableLights(true);
             channel.setLightColor(Color.RED);
-            channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
+            channel.setVibrationPattern(new long[]{100, 200, 100});
             channel.setSound(RingtoneManager
                             .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
                     Notification.AUDIO_ATTRIBUTES_DEFAULT);
