@@ -1,20 +1,21 @@
 package ca.josue.mainactivity;
 
-import androidx.multidex.MultiDexApplication;
+import android.app.Application;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.utils.ResponseAnswer;
+import dagger.hilt.android.HiltAndroidApp;
 
-public class BaseApplication extends MultiDexApplication {
-    public static int totalScore = 0;
-    public static int score = 0;
-    public static Map<Long, ResponseAnswer> answersMapSession = new HashMap<>();
+@HiltAndroidApp
+public class BaseApplication extends Application {
+    public static Map<Long, ResponseAnswer> answersMapSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        answersMapSession = new HashMap<>();
     }
 }

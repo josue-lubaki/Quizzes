@@ -2,6 +2,7 @@ package ca.josue.mainactivity;
 
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,36 +14,40 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import ca.josue.mainactivity.data.repository.StatsRepo;
+import javax.inject.Inject;
+
+import ca.josue.mainactivity.data.repository.AnswersRepo;
+import ca.josue.mainactivity.data.repository.QuizzesRepo;
+import ca.josue.mainactivity.data.repository.impl.StatsRepoImpl;
+import ca.josue.mainactivity.data.repository.impl.AnswersRepoImpl;
+import ca.josue.mainactivity.data.repository.impl.QuizzesRepoImpl;
+import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivityGameBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.entity.StatEntity;
 import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.ui.adpater.GameAdapter;
-import ca.josue.mainactivity.utils.Converter;
 import ca.josue.mainactivity.utils.Menu;
 import ca.josue.mainactivity.utils.ResponseAnswer;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class Game extends AppCompatActivity {
     private static final String CHANNEL_ID = Game.class.getSimpleName() + ".channel";
     public static final String GAME_NOTIFICATION = Game.class.getSimpleName() + ".notification";
@@ -51,6 +56,19 @@ public class Game extends AppCompatActivity {
 
     private String tag = null;
     private ActivityGameBinding binding;
+
+    @Inject
+    public QuizzesDatabase database;
+
+    @Inject
+    public AnswersRepo answersRepo;
+
+    @Inject
+    public QuizzesRepo quizzesRepo;
+
+    @Inject
+    public QuizzesViewModel quizzesViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +98,8 @@ public class Game extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new GameAdapter(this.getApplicationContext());
+        adapter = new GameAdapter(this.getApplicationContext(), answersRepo);
         binding.setShowLoading(adapter.getQuizzes().size() == 0);
-        QuizzesViewModel quizzesViewModel = new ViewModelProvider(this).get(QuizzesViewModel.class);
 
         if (tag != null) {
             quizzesViewModel.getQuizzesByCategory(tag).observe(this, quizzes -> {
@@ -128,7 +145,7 @@ public class Game extends AppCompatActivity {
         String tag = quizzes.get(0).getTags();
         int total = quizzes.size();
 
-        new StatsRepo(this.getApplication())
+        new StatsRepoImpl(database)
                 .insertStats(new StatEntity(tag, score, total));
     }
 
@@ -146,7 +163,7 @@ public class Game extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(GAME_NOTIFICATION, Menu.STATS.getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent,PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder notificationBuilder =
             new NotificationCompat
@@ -171,6 +188,7 @@ public class Game extends AppCompatActivity {
         return String.format(Locale.CANADA, " (%d%%)", (score * 100) / size);
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

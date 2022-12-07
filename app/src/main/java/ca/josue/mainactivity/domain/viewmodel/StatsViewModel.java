@@ -1,24 +1,23 @@
 package ca.josue.mainactivity.domain.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.repository.StatsRepo;
 import ca.josue.mainactivity.domain.entity.StatEntity;
 
-public class StatsViewModel extends AndroidViewModel {
-    private StatsRepo statsRepo;
-    private LiveData<List<StatEntity>> allStats;
+public class StatsViewModel extends ViewModel {
+    private final LiveData<List<StatEntity>> allStats;
+    private final StatsRepo statsRepo;
 
-    public StatsViewModel(@NonNull Application application) {
-        super(application);
-        statsRepo = new StatsRepo(application);
-        allStats = statsRepo.getAllStats();
+    @Inject
+    public StatsViewModel(StatsRepo statsRepo) {
+        this.statsRepo = statsRepo;
+        this.allStats = statsRepo.getAllStats();
     }
 
     public LiveData<List<StatEntity>> getAllStats() {

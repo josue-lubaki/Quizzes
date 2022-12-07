@@ -14,27 +14,28 @@ import android.view.WindowManager;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import ca.josue.mainactivity.data.data_source.network.QuizzesApiClient;
+import javax.inject.Inject;
+
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
-import ca.josue.mainactivity.data.repository.AnswersRepo;
+import ca.josue.mainactivity.data.repository.impl.AnswersRepoImpl;
+import ca.josue.mainactivity.data.repository.impl.QuizzesRepoImpl;
 import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivitySplashScreenBinding;
-import ca.josue.mainactivity.data.repository.QuizzesRepo;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
-import ca.josue.mainactivity.domain.enums.TagsEnum;
 import ca.josue.mainactivity.utils.Converter;
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 public class SplashScreen extends AppCompatActivity {
 
     private static final String TAG = SplashScreen.class.getSimpleName();
@@ -42,9 +43,16 @@ public class SplashScreen extends AppCompatActivity {
     private final Handler handler = new Handler();
     private int pStatus = 0;
 
+    @Inject
+    public Retrofit retrofit;
+
+    @Inject
+    public QuizzesDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivitySplashScreenBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_splash_screen);
 
@@ -81,9 +89,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void retrieveAllQuestions() {
-        QuizzesApiClient
-                .getApi()
-                .create(QuizzesApiService.class)
+        retrofit.create(QuizzesApiService.class)
                 .getAllQuizzes()
                 .enqueue(new Callback<List<QuizDto>>() {
                     @Override
@@ -101,8 +107,8 @@ public class SplashScreen extends AppCompatActivity {
 
                         QuizEntity[] quizArray = Converter.getQuizEntitiesArray(quizzes);
                         Answers[] answersArray = Converter.getAnswersArray(quizzes);
-                        new QuizzesRepo(getApplication()).insertQuizzes(quizArray);
-                        new AnswersRepo(getApplication()).insertAnswers(answersArray);
+                        new QuizzesRepoImpl(database).insertQuizzes(quizArray);
+                        new AnswersRepoImpl(database).insertAnswers(answersArray);
                     }
 
                     @Override

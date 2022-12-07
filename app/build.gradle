@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -38,8 +39,6 @@ android {
     }
 }
 
-def retrofit_vesion = "2.9.0"
-
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -55,21 +54,19 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_vesion"
 
     // navigation component
-    implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
+    implementation "com.etebarian:meow-bottom-navigation-java:$meow_version"
 
-    // added Room
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
-    implementation 'androidx.room:room-runtime:2.4.3'
-
-    // Added Picasso
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-
-    // Added Lombok
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    // added Room Database
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
 
     // Added Lottie
-    implementation 'com.airbnb.android:lottie:4.2.2'
+    implementation "com.airbnb.android:lottie:$lottie_version"
 
-    // Added multiDex
-    implementation 'androidx.multidex:multidex:2.0.1'
+    // Added Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    annotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
+
 }

@@ -4,7 +4,6 @@ import static android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD;
 import static ca.josue.mainactivity.BaseApplication.answersMapSession;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -34,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.domain.entity.Answers;
@@ -48,10 +49,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
 
     private final Animation animationFadeIn;
 
-    public GameAdapter(Context context) {
+    @Inject
+    public GameAdapter(Context context, AnswersRepo answersRepo) {
         this.context = context;
         this.quizzes = new ArrayList<>();
-        this.answersRepo = new AnswersRepo((Application) context);
+        this.answersRepo = answersRepo;
         this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in_400);
     }
 

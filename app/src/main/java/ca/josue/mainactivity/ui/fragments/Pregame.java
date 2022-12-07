@@ -17,12 +17,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import ca.josue.mainactivity.Loading;
+import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.databinding.FragmentPregameBinding;
 import ca.josue.mainactivity.domain.enums.TagsEnum;
 
 public class Pregame extends Fragment {
     private FragmentPregameBinding binding;
+
+    private final MainActivity application;
+
+    public Pregame(MainActivity application) {
+        this.application = application;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -82,7 +89,7 @@ public class Pregame extends Fragment {
     }
 
     private void startGame(String tag) {
-        Intent intent = new Intent(getActivity(), Loading.class);
+        Intent intent = new Intent(application, Loading.class);
 
         switch(tag) {
             case "html":

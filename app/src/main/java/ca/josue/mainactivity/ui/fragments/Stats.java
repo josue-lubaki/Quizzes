@@ -1,21 +1,20 @@
 package ca.josue.mainactivity.ui.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import ca.josue.mainactivity.MainActivity;
 import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.databinding.FragmentStatsBinding;
 import ca.josue.mainactivity.domain.viewmodel.StatsViewModel;
@@ -26,6 +25,13 @@ public class Stats extends Fragment {
     private FragmentStatsBinding binding;
     private StatsAdapter adapter;
 
+    private final MainActivity application;
+    private final StatsViewModel viewModel;
+
+    public Stats(MainActivity application, StatsViewModel viewModel) {
+        this.application = application;
+        this.viewModel = viewModel;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -40,7 +46,7 @@ public class Stats extends Fragment {
 
         RecyclerView recyclerViewStats = binding.recyclerViewStats;
 
-        adapter = new StatsAdapter(this.getContext());
+        adapter = new StatsAdapter(application);
         binding.setShowEmpty(adapter.getItemCount() == 0);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setReverseLayout(true);
@@ -61,7 +67,7 @@ public class Stats extends Fragment {
 
         recyclerViewStats.setAdapter(adapter);
 
-        StatsViewModel viewModel = new ViewModelProvider(this).get(StatsViewModel.class);
+//        StatsViewModel viewModel = new StatsViewModel(statsRepoImpl);
         viewModel.getAllStats().observe(getViewLifecycleOwner(), stats -> {
             binding.setShowEmpty(stats.isEmpty());
             adapter.setStats(stats);

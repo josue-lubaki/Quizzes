@@ -1,22 +1,22 @@
 package ca.josue.mainactivity.domain.viewmodel;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.domain.entity.Answers;
 
-public class AnswersViewModel extends AndroidViewModel {
+public class AnswersViewModel extends ViewModel {
     private final AnswersRepo answersRepo;
     private final LiveData<List<Answers>> allAnswers;
 
-    public AnswersViewModel(Application application) {
-        super(application);
-        this.answersRepo = new AnswersRepo(application);
+    @Inject
+    public AnswersViewModel(AnswersRepo answersRepo) {
+        this.answersRepo = answersRepo;
         this.allAnswers = answersRepo.getAllAnswers();
     }
 
