@@ -32,16 +32,13 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ca.josue.mainactivity.data.repository.AnswersRepo;
-import ca.josue.mainactivity.data.repository.QuizzesRepo;
-import ca.josue.mainactivity.data.repository.impl.StatsRepoImpl;
-import ca.josue.mainactivity.data.repository.impl.AnswersRepoImpl;
-import ca.josue.mainactivity.data.repository.impl.QuizzesRepoImpl;
 import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivityGameBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.entity.StatEntity;
+import ca.josue.mainactivity.domain.viewmodel.AnswersViewModel;
 import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
+import ca.josue.mainactivity.domain.viewmodel.StatsViewModel;
 import ca.josue.mainactivity.ui.adpater.GameAdapter;
 import ca.josue.mainactivity.utils.Menu;
 import ca.josue.mainactivity.utils.ResponseAnswer;
@@ -61,13 +58,13 @@ public class Game extends AppCompatActivity {
     public QuizzesDatabase database;
 
     @Inject
-    public AnswersRepo answersRepo;
-
-    @Inject
-    public QuizzesRepo quizzesRepo;
+    public AnswersViewModel answersViewModel;
 
     @Inject
     public QuizzesViewModel quizzesViewModel;
+
+    @Inject
+    public StatsViewModel statViewModel;
 
 
     @Override
@@ -98,7 +95,7 @@ public class Game extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new GameAdapter(this.getApplicationContext(), answersRepo);
+        adapter = new GameAdapter(this.getApplicationContext(), answersViewModel);
         binding.setShowLoading(adapter.getQuizzes().size() == 0);
 
         if (tag != null) {
@@ -145,8 +142,7 @@ public class Game extends AppCompatActivity {
         String tag = quizzes.get(0).getTags();
         int total = quizzes.size();
 
-        new StatsRepoImpl(database)
-                .insertStats(new StatEntity(tag, score, total));
+        statViewModel.insertStats(new StatEntity(tag, score, total));
     }
 
     private void sendNotification(int score, int size) {

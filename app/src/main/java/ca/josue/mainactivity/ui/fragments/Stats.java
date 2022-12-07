@@ -67,7 +67,6 @@ public class Stats extends Fragment {
 
         recyclerViewStats.setAdapter(adapter);
 
-//        StatsViewModel viewModel = new StatsViewModel(statsRepoImpl);
         viewModel.getAllStats().observe(getViewLifecycleOwner(), stats -> {
             binding.setShowEmpty(stats.isEmpty());
             adapter.setStats(stats);

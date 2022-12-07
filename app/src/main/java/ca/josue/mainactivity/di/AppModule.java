@@ -60,19 +60,19 @@ public abstract class AppModule {
     @Provides
     @Singleton
     public static QuizzesRepo provideQuizzesRepo(QuizzesDatabase database) {
-        return new QuizzesRepoImpl(database);
+        return new QuizzesRepoImpl(database.quizzesDao());
     }
 
     @Provides
     @Singleton
     public static AnswersRepo provideAnswersRepo(QuizzesDatabase database) {
-        return new AnswersRepoImpl(database);
+        return new AnswersRepoImpl(database.answersDao());
     }
 
     @Provides
     @Singleton
     public static StatsRepo provideStatsRepo(QuizzesDatabase database) {
-        return new StatsRepoImpl(database);
+        return new StatsRepoImpl(database.statsDao());
     }
 
     // ViewModels

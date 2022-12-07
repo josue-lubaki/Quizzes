@@ -17,8 +17,8 @@ public class AnswersRepoImpl implements AnswersRepo {
    private final LiveData<List<Answers>> allAnswers;
 
     @Inject
-    public AnswersRepoImpl(QuizzesDatabase database) {
-            this.answersDao = database.answersDao();
+    public AnswersRepoImpl(AnswersDao dao) {
+            this.answersDao = dao;
             this.allAnswers = answersDao.getAnswers();
     }
 

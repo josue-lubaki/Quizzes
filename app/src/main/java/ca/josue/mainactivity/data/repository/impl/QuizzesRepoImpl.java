@@ -13,13 +13,13 @@ import ca.josue.mainactivity.domain.entity.QuizEntity;
 
 public class QuizzesRepoImpl implements QuizzesRepo {
 
-   public QuizzesDao quizzesDao;
+   public QuizzesDao dao;
    private final LiveData<List<QuizEntity>> allQuizzes;
 
     @Inject
-    public QuizzesRepoImpl(QuizzesDatabase database) {
-         this.quizzesDao = database.quizzesDao();
-         this.allQuizzes = quizzesDao.getAllQuizzes();
+    public QuizzesRepoImpl(QuizzesDao dao) {
+         this.dao = dao;
+         this.allQuizzes = this.dao.getAllQuizzes();
     }
 
     @Override
@@ -29,41 +29,41 @@ public class QuizzesRepoImpl implements QuizzesRepo {
 
     @Override
     public LiveData<List<QuizEntity>> getQuizzesByCategory(String category) {
-        return quizzesDao.getQuizzesByCategory(category);
+        return dao.getQuizzesByCategory(category);
     }
 
     @Override
     public void insertQuiz(QuizEntity quiz) {
-        QuizzesDatabase.databaseWriteExecutor.execute(() -> quizzesDao.insertQuiz(quiz));
+        QuizzesDatabase.databaseWriteExecutor.execute(() -> dao.insertQuiz(quiz));
     }
 
     @Override
     public void insertQuizzes(QuizEntity... quizzes) {
-        QuizzesDatabase.databaseWriteExecutor.execute(() -> quizzesDao.insertQuizzes(quizzes));
+        QuizzesDatabase.databaseWriteExecutor.execute(() -> dao.insertQuizzes(quizzes));
     }
 
     @Override
     public void deleteQuiz(long id) {
-        QuizzesDatabase.databaseWriteExecutor.execute(() -> quizzesDao.deleteQuiz(id));
+        QuizzesDatabase.databaseWriteExecutor.execute(() -> dao.deleteQuiz(id));
     }
 
     @Override
     public void deleteAllQuizzes() {
-        QuizzesDatabase.databaseWriteExecutor.execute(quizzesDao::deleteAllQuizzes);
+        QuizzesDatabase.databaseWriteExecutor.execute(dao::deleteAllQuizzes);
     }
 
     @Override
     public QuizEntity getQuizById(long id) {
-        return quizzesDao.getQuizById(id);
+        return dao.getQuizById(id);
     }
 
     @Override
     public int getSizeQuizzesTags(String tags) {
-        return quizzesDao.getSizeQuizzesTags(tags);
+        return dao.getSizeQuizzesTags(tags);
     }
 
     @Override
     public int start() {
-        return quizzesDao.start();
+        return dao.start();
     }
 }

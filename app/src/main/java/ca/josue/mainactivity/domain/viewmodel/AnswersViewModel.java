@@ -23,6 +23,9 @@ public class AnswersViewModel extends ViewModel {
     public LiveData<List<Answers>> getAllAnswers() {
         return allAnswers;
     }
+    public Answers getAnswerById(long id) {
+        return answersRepo.getAnswerById(id);
+    }
 
     public void insertAnswer(Answers answer) {
         answersRepo.insertAnswer(answer);

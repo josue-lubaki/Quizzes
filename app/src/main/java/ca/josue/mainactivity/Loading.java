@@ -17,13 +17,13 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
-import ca.josue.mainactivity.data.repository.impl.AnswersRepoImpl;
-import ca.josue.mainactivity.data.repository.impl.QuizzesRepoImpl;
 import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.enums.TagsEnum;
+import ca.josue.mainactivity.domain.viewmodel.AnswersViewModel;
+import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.utils.Converter;
 import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
@@ -41,6 +41,12 @@ public class Loading extends AppCompatActivity {
 
     @Inject
     public Retrofit retrofit;
+
+    @Inject
+    public QuizzesViewModel quizzesViewModel;
+
+    @Inject
+    public AnswersViewModel answersViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +89,8 @@ public class Loading extends AppCompatActivity {
 
                     QuizEntity[] quizArray = Converter.getQuizEntitiesArray(quizzes);
                     Answers[] answersArray = Converter.getAnswersArray(quizzes);
-                    new QuizzesRepoImpl(database).insertQuizzes(quizArray);
-                    new AnswersRepoImpl(database).insertAnswers(answersArray);
+                    quizzesViewModel.insertQuizzes(quizArray);
+                    answersViewModel.insertAnswers(answersArray);
                 }
 
                 @Override

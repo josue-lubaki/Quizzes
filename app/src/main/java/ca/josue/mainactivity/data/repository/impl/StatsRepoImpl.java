@@ -17,8 +17,8 @@ public class StatsRepoImpl implements StatsRepo {
     private final LiveData<List<StatEntity>> allStats;
 
     @Inject
-    public StatsRepoImpl(QuizzesDatabase database) {
-        statsDao = database.statsDao();
+    public StatsRepoImpl(StatsDao dao) {
+        statsDao = dao;
         allStats = statsDao.getAllStats();
     }
 

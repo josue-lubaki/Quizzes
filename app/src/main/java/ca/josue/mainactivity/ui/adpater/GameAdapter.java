@@ -33,27 +33,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.inject.Inject;
-
 import ca.josue.mainactivity.R;
-import ca.josue.mainactivity.data.repository.AnswersRepo;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.domain.viewmodel.AnswersViewModel;
 import ca.josue.mainactivity.utils.ResponseAnswer;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
     private static final String TAG = GameAdapter.class.getSimpleName();
     private final Context context;
     private List<QuizEntity> quizzes;
-    private final AnswersRepo answersRepo;
+    private final AnswersViewModel answersViewModel;
 
     private final Animation animationFadeIn;
 
-    @Inject
-    public GameAdapter(Context context, AnswersRepo answersRepo) {
+    public GameAdapter(Context context, AnswersViewModel answersViewModel) {
         this.context = context;
         this.quizzes = new ArrayList<>();
-        this.answersRepo = answersRepo;
+        this.answersViewModel = answersViewModel;
         this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in_400);
     }
 
@@ -78,7 +75,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.QuizzesVH> {
 
         holder.question.setText(quiz.getQuestion());
 
-        Answers answers = answersRepo.getAnswerById(quiz.getId());
+        Answers answers = answersViewModel.getAnswerById(quiz.getId());
         if(answers == null){
             return;
         }

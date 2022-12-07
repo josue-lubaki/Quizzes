@@ -1,15 +1,15 @@
 package ca.josue.mainactivity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -20,13 +20,13 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
-import ca.josue.mainactivity.data.repository.impl.AnswersRepoImpl;
-import ca.josue.mainactivity.data.repository.impl.QuizzesRepoImpl;
 import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivitySplashScreenBinding;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
+import ca.josue.mainactivity.domain.viewmodel.AnswersViewModel;
+import ca.josue.mainactivity.domain.viewmodel.QuizzesViewModel;
 import ca.josue.mainactivity.utils.Converter;
 import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
@@ -48,6 +48,12 @@ public class SplashScreen extends AppCompatActivity {
 
     @Inject
     public QuizzesDatabase database;
+
+    @Inject
+    public QuizzesViewModel quizzesViewModel;
+
+    @Inject
+    public AnswersViewModel answersViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +113,8 @@ public class SplashScreen extends AppCompatActivity {
 
                         QuizEntity[] quizArray = Converter.getQuizEntitiesArray(quizzes);
                         Answers[] answersArray = Converter.getAnswersArray(quizzes);
-                        new QuizzesRepoImpl(database).insertQuizzes(quizArray);
-                        new AnswersRepoImpl(database).insertAnswers(answersArray);
+                        quizzesViewModel.insertQuizzes(quizArray);
+                        answersViewModel.insertAnswers(answersArray);
                     }
 
                     @Override
