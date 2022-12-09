@@ -70,6 +70,7 @@ public class Stats extends Fragment {
         viewModel.getAllStats().observe(getViewLifecycleOwner(), stats -> {
             binding.setShowEmpty(stats.isEmpty());
             adapter.setStats(stats);
+            adapter.notifyDataSetChanged();
         });
 
         ExtendedFloatingActionButton btnDeleteAll = binding.btnDeleteAll;

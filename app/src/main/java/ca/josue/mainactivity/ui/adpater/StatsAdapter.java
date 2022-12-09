@@ -19,18 +19,12 @@ import ca.josue.mainactivity.R;
 import ca.josue.mainactivity.domain.entity.StatEntity;
 
 public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatsViewHolder> {
-    private final Context context;
     private List<StatEntity> stats;
     private final Animation animationFadeIn;
 
     public StatsAdapter(Context context) {
-        this.context = context;
         this.stats = new ArrayList<>();
         this.animationFadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in_400);
-    }
-
-    public Context getContext() {
-        return context;
     }
 
     @NonNull

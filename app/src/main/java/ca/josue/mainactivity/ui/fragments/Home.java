@@ -26,10 +26,10 @@ import ca.josue.mainactivity.utils.Menu;
 public class Home extends Fragment {
     private FragmentHomeBinding binding;
 
-    private final MainActivity application;
+    private final MainActivity activity;
 
-    public Home(MainActivity application) {
-        this.application = application;
+    public Home(MainActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -43,7 +43,6 @@ public class Home extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         ((MainActivity)context).setTitle(R.string.home);
-//        this.activity = (MainActivity) getActivity();
     }
 
     @Override
@@ -72,7 +71,7 @@ public class Home extends Fragment {
     }
 
     private void startGame(View view) {
-        application.changeNavBar(Menu.PREGAME, true);
-        application.showFragment(application, new Pregame(application));
+        activity.changeNavBar(Menu.PREGAME, true);
+        activity.showFragment(activity, new Pregame(activity));
     }
 }

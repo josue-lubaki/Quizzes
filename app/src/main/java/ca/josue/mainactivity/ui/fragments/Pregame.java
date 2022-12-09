@@ -25,10 +25,10 @@ import ca.josue.mainactivity.domain.enums.TagsEnum;
 public class Pregame extends Fragment {
     private FragmentPregameBinding binding;
 
-    private final MainActivity application;
+    private final MainActivity activity;
 
-    public Pregame(MainActivity application) {
-        this.application = application;
+    public Pregame(MainActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Pregame extends Fragment {
     }
 
     private void startGame(String tag) {
-        Intent intent = new Intent(application, Loading.class);
+        Intent intent = new Intent(activity, Loading.class);
 
         switch(tag) {
             case "html":
