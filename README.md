@@ -20,9 +20,9 @@ Application android de Quiz
     <th> Categories Page </th>
   </tr>
   <tr>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_1.png" width=220 height=450 /></td>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_2.png" width=220 height=450 /></td>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_3.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/0qRJjle.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/tfNM994.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/qQSfGj0.png" width=220 height=450 /></td>
   </tr>
   <tr>
     <th> </th>
@@ -40,9 +40,9 @@ Application android de Quiz
     <th> Empty Stats Page </th>
   </tr>
   <tr>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_4.png" width=220 height=450 /></td>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_5.png" width=220 height=450 /></td>
-    <td> <img src="https://github.com/josue-lubaki/Quizzes/blob/main/img/screen_6.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/5C6vjNW.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/qNDSiKd.png" width=220 height=450 /></td>
+    <td> <img src="https://i.imgur.com/e5R1RfN.png" width=220 height=450 /></td>
   </tr>
 </table>
 
