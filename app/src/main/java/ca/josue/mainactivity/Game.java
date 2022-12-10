@@ -32,7 +32,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivityGameBinding;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
 import ca.josue.mainactivity.domain.entity.StatEntity;
@@ -55,9 +54,6 @@ public class Game extends AppCompatActivity {
     private ActivityGameBinding binding;
 
     @Inject
-    public QuizzesDatabase database;
-
-    @Inject
     public AnswersViewModel answersViewModel;
 
     @Inject
@@ -65,7 +61,6 @@ public class Game extends AppCompatActivity {
 
     @Inject
     public StatsViewModel statViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

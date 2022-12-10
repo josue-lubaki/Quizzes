@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private MeowBottomNavigation navBar;
 
     @Inject
-    StatsViewModel statsViewModel;
+    public StatsViewModel statsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

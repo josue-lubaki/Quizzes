@@ -17,7 +17,6 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
-import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
 import ca.josue.mainactivity.domain.entity.QuizEntity;
@@ -35,9 +34,6 @@ import retrofit2.Retrofit;
 public class Loading extends AppCompatActivity {
 
     private static final String TAG = Loading.class.getSimpleName();
-
-    @Inject
-    public QuizzesDatabase database;
 
     @Inject
     public Retrofit retrofit;

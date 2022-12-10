@@ -20,7 +20,6 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import ca.josue.mainactivity.data.data_source.network.QuizzesApiService;
-import ca.josue.mainactivity.database.QuizzesDatabase;
 import ca.josue.mainactivity.databinding.ActivitySplashScreenBinding;
 import ca.josue.mainactivity.domain.dto.QuizDto;
 import ca.josue.mainactivity.domain.entity.Answers;
@@ -45,9 +44,6 @@ public class SplashScreen extends AppCompatActivity {
 
     @Inject
     public Retrofit retrofit;
-
-    @Inject
-    public QuizzesDatabase database;
 
     @Inject
     public QuizzesViewModel quizzesViewModel;
