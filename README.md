@@ -13,6 +13,12 @@ Application android de Quiz
 * VersionSDK : 9.0 (lollipop)
 * Architecture MVVM
 
+# Configuration
+- create your API key in ```https://quizapi.io/```
+- Go to "local.properties" and add your API key
+
+[![Image](https://i.imgur.com/WFe6K8J.png)](https://quizapi.io/)
+
 <table border="1">
   <tr>
     <th> Splash Screen </th>
