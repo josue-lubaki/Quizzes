@@ -72,6 +72,7 @@ public class Game extends AppCompatActivity {
         // create notification channel
         createNotificationChannel();
 
+        // put the app in fullscreen
         Objects.requireNonNull(getSupportActionBar()).hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

@@ -35,6 +35,9 @@ public abstract class AppModule {
     private static final String URL = BuildConfig.QUIZZES_URL;
     private static final String DATABASE_NAME = BuildConfig.QUIZZES_DB_NAME;
 
+    // Respect the nomenclature des methods
+    // prefixed par "provide"
+
     @Provides
     @Singleton
     public static QuizzesDatabase provideDatabase(Application application) {

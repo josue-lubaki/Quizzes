@@ -50,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    // Configuerer la barre de navigation avec l'icone correspondante
     private void configureNavigationBar() {
         navBar = binding.navBar;
         navBar.add(new MeowBottomNavigation.Model(Menu.HOME.getId(),R.drawable.ic_home));
         navBar.add(new MeowBottomNavigation.Model(Menu.PREGAME.getId(),R.drawable.ic_game));
         navBar.add(new MeowBottomNavigation.Model(Menu.STATS.getId(), R.drawable.ic_score));
+
+        // switch pour afficher le fragment correspondant à l'icone selectionnée
         navBar.setOnShowListener(item -> {
             Fragment fragment = null;
             switch(item.getId()){
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             showFragment(this, fragment);
         });
 
+        // Afficher le fragment Home par défaut
         changeNavBar(Menu.HOME,true);
         navBar.setOnClickMenuListener(item -> {});
         navBar.setOnReselectListener(item -> {
